@@ -22,6 +22,7 @@ Use this setup for all exercises.
 ```bash 
 opencode . --agent orchestrator --model openai/gpt-5.5
 opencode . --agent developer --model openai/gpt-5.5
+opencode . --agent code-reviewer --model openai/gpt-5.5
 opencode . --agent reviewer --model openai/gpt-5.5
 ```
 
@@ -64,6 +65,33 @@ Do not address unrelated tasks.
 Do not create Trello cards.
 Do not move tasks to Done.
 Return using the Developer Output format.
+
+### Code Reviewer Pane
+
+Read:
+- AGENTS.md
+- docs/workflows/code-reviewer-workflow.md
+- docs/workflows/github-pr-workflow.md
+- docs/workflows/trello-agent-workflow.md
+
+You are the Code Reviewer Agent.
+Review only the requested Task ID.
+Use Trello MCP and GitHub CLI:
+1. Read the requested task card.
+2. Confirm it is in Code Review.
+3. Confirm the card links a GitHub PR.
+4. Review only the linked PR diff and directly relevant surrounding code.
+5. Confirm PR title, branch, scope, and validation evidence.
+6. Run validation commands and targeted smoke checks when relevant and feasible.
+7. Create a GitHub PR review with approve or request-changes.
+8. Add review findings as a Trello comment.
+9. If FAIL, move Code Review → Blocked.
+10. If PASS, move Code Review → Functional Review.
+Do not modify files.
+Do not merge PRs.
+Do not perform final functional acceptance review.
+Do not move tasks to Done.
+Return using the Code Reviewer Output format.
 
 ### Reviewer Pane
 
@@ -170,7 +198,7 @@ Use Trello MCP:
 4. Implement only the card scope.
 5. Run relevant validation commands.
 6. Add implementation notes as a Trello comment.
-7. Move <TASK-ID> to Review.
+7. Move <TASK-ID> to Code Review.
 Return using the Developer Output format.
 
 ## Reviewer Review Task By ID
@@ -189,8 +217,31 @@ Use Trello MCP:
 6. Run validation commands when possible.
 7. Add review findings as a Trello comment.
 8. If FAIL, move <TASK-ID> to Blocked.
-9. If PASS, leave <TASK-ID> in Ready To Release.
+9. If PASS, move <TASK-ID> to Ready To Release.
 Return using the Reviewer Output format.
+
+## Code Reviewer Review PR By Task ID
+
+Review only task <TASK-ID>.
+Read:
+- AGENTS.md
+- docs/workflows/code-reviewer-workflow.md
+- docs/workflows/github-pr-workflow.md
+- docs/workflows/trello-agent-workflow.md
+Use Trello MCP and GitHub CLI:
+1. Read <TASK-ID>.
+2. Confirm it is in Code Review.
+3. Confirm the card links a GitHub PR.
+4. Review only the linked PR diff and directly relevant surrounding code.
+5. Validate PR title, branch, scope, architecture boundaries, tests, and validation evidence.
+6. Run validation commands and targeted smoke checks when relevant and feasible.
+7. Create a GitHub PR review with approve or request-changes.
+8. Add a Trello comment with findings, commands run, and decision.
+9. If FAIL, move <TASK-ID> to Blocked.
+10. If PASS, move <TASK-ID> to Functional Review.
+Do not modify files.
+Do not perform final functional acceptance review.
+Return using the Code Reviewer Output format.
 
 ## Orchestrator Close Approved Task
 

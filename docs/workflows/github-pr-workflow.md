@@ -160,7 +160,9 @@ A task cannot move to Functional Review until:
 - PR references Trello Task ID
 - branch name includes Task ID
 - validation evidence is present
-- Code Reviewer passes the PR or leaves only acceptable LOW findings
+- Code Reviewer creates a GitHub PR review
+- Code Reviewer approves the PR or leaves only acceptable LOW findings
+- targeted smoke checks pass when they are needed for technical confidence
 
 ---
 

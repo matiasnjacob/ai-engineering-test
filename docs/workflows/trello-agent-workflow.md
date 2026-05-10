@@ -101,13 +101,15 @@ May:
 
 - read cards in Code Review
 - add code review comments
+- create GitHub PR reviews for linked PRs
+- run targeted smoke checks when relevant and feasible
 - move Code Review → Functional Review if validation passes
 - move Code Review → Blocked if validation fails
 
 Must NOT:
 
 - implement fixes
-- perform functional acceptance review
+- perform final functional acceptance review
 - move cards to Done
 
 ---
@@ -185,6 +187,26 @@ Before implementing a Trello task, the Developer Agent must:
 8. Add a final implementation comment.
 
 If the card is not in Ready, the Developer Agent must stop.
+
+---
+
+# Code Reviewer Start Protocol
+
+Before reviewing a Trello task, the Code Reviewer Agent must:
+
+1. Read the requested card by task ID.
+2. Confirm the card is in Code Review.
+3. Confirm the card contains a GitHub PR link.
+4. Read the linked GitHub PR.
+5. Confirm the PR title and branch include the task ID.
+6. Review only the PR diff and directly relevant surrounding code.
+7. Run validation commands and targeted smoke checks when relevant and feasible.
+8. Create a GitHub PR review with an approve or request-changes decision.
+9. Add a Trello comment with the decision, findings, commands run, and remaining issues.
+10. If validation fails, move Code Review → Blocked.
+11. If validation passes, move Code Review → Functional Review.
+
+The Code Reviewer Agent must not perform final functional acceptance review.
 
 ---
 
