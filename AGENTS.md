@@ -194,7 +194,7 @@ The Reviewer Agent must NOT:
 - refactor code
 - fix issues directly
 - approve work without evidence
-- move Review tasks to Done
+- move Functional Review tasks to Done
 
 ---
 
