@@ -23,6 +23,23 @@ The Reviewer Agent must validate:
 
 ---
 
+# Functional Review Start Protocol
+
+When GitHub PR workflow is enabled, the Reviewer Agent must:
+
+1. Read the requested Trello task.
+2. Confirm the task is in Functional Review.
+3. Confirm Code Reviewer has passed the PR.
+4. Validate acceptance criteria.
+5. Validate runtime behavior when possible.
+6. Add functional review findings as a Trello comment.
+7. Move Functional Review → Review if PASS.
+8. Move Functional Review → Blocked if FAIL.
+
+The Reviewer Agent must not perform code review unless explicitly requested.
+
+---
+
 # Architecture Checks
 
 Validate:

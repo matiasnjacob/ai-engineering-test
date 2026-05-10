@@ -29,7 +29,9 @@ Code quality, architectural discipline, and validation evidence are more importa
 Agents must use these workflow documents when relevant:
 
 - Trello workflow: `/docs/workflows/trello-agent-workflow.md`
+- GitHub PR workflow: `/docs/workflows/github-pr-workflow.md`
 - Reviewer workflow: `/docs/workflows/reviewer-workflow.md`
+- Code reviewer workflow: `/docs/workflows/code-reviewer-workflow.md`
 - Developer validation workflow: `/docs/workflows/developer-validation-workflow.md`
 
 ---
@@ -146,7 +148,31 @@ The Developer Agent must NOT:
 
 ---
 
-# 8. Reviewer Agent
+# 8. Code Reviewer Agent
+
+The Code Reviewer Agent is responsible for technical pull request validation.
+
+The Code Reviewer Agent must:
+
+- follow `/docs/workflows/code-reviewer-workflow.md`
+- read the Trello task before reviewing
+- read the GitHub PR linked from the Trello task
+- review only the PR diff
+- validate scope, code quality, architecture boundaries, and PR hygiene
+- add findings as GitHub or Trello comments
+- move Code Review → Functional Review only if PASS
+- move Code Review → Blocked if FAIL
+
+The Code Reviewer Agent must NOT:
+
+- implement fixes
+- perform functional acceptance review
+- move tasks to Done
+- merge PRs without explicit human approval
+
+---
+
+# 9. Reviewer Agent
 
 The Reviewer Agent is responsible for validating work produced by the Developer Agent.
 
@@ -170,7 +196,7 @@ The Reviewer Agent must NOT:
 
 ---
 
-# 9. Architecture Rules
+# 10. Architecture Rules
 
 ## API Layer
 
@@ -233,7 +259,7 @@ Must:
 
 ---
 
-# 10. Repository Hygiene Rules
+# 11. Repository Hygiene Rules
 
 - .gitignore is mandatory
 - bin/ and obj/ must never be committed
@@ -244,7 +270,7 @@ Must:
 
 ---
 
-# 11. Severity Levels
+# 12. Severity Levels
 
 ## BLOCKER
 
@@ -278,7 +304,7 @@ Use for:
 
 ---
 
-# 12. Structured Outputs
+# 13. Structured Outputs
 
 ## Orchestrator Output
 
@@ -322,6 +348,51 @@ Use this format:
 
 ---
 
+## Code Reviewer Output
+
+Use this format:
+
+## Code Review Status
+PASS / FAIL
+
+## PR Review
+- Task ID:
+- Branch:
+- PR:
+- Scope:
+- Validation Evidence:
+
+## Architecture Review
+- API Layer:
+- Application Layer:
+- Domain Layer:
+- Infrastructure Layer:
+- Dependency Direction:
+
+## Code Quality Review
+- Maintainability:
+- Simplicity:
+- Naming:
+- Test Quality:
+- Scope Control:
+
+## Findings
+| Severity | Area | Finding | Recommendation |
+|---|---|---|---|
+
+## Risks
+- ...
+
+## Trello Action
+- Previous Status:
+- New Status:
+- Comment Added:
+
+## Final Recommendation
+...
+
+---
+
 ## Reviewer Output
 
 Use this format:
@@ -356,7 +427,7 @@ PASS / FAIL
 
 ---
 
-# 13. Definition of Done
+# 14. Definition of Done
 
 A task is considered done only if:
 
@@ -365,6 +436,7 @@ A task is considered done only if:
 - dependencies restore successfully
 - project builds successfully
 - tests pass
+- code reviewer validation passes when GitHub PR workflow is used
 - reviewer validation passes
 - outputs follow required formats
 - no blocker findings remain
@@ -373,7 +445,7 @@ A task is considered done only if:
 
 ---
 
-# 14. Simplicity Rule
+# 15. Simplicity Rule
 
 Prefer:
 

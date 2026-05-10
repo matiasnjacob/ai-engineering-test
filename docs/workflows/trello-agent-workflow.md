@@ -15,9 +15,22 @@ Use these lists:
 - Backlog
 - Ready
 - In Progress
+- Code Review
+- Functional Review
 - Review
 - Blocked
 - Done
+
+## List Meaning
+
+- Backlog: task exists but is not approved for work.
+- Ready: approved for Developer execution.
+- In Progress: Developer is actively working.
+- Code Review: PR is ready for Code Reviewer.
+- Functional Review: code review passed and task is ready for functional validation.
+- Review: functional validation passed and task is ready for Orchestrator closure.
+- Blocked: task failed validation or needs human decision.
+- Done: Orchestrator approved final completion.
 
 ---
 
@@ -57,7 +70,7 @@ May:
 
 - read assigned task cards
 - move Ready → In Progress
-- move In Progress → Review
+- move In Progress → Code Review
 - add implementation comments
 
 Must NOT:
@@ -71,14 +84,30 @@ Must NOT:
 
 May:
 
-- read cards in Review
+- read cards in Functional Review
 - add review comments
-- move Review → Blocked if validation fails
+- move Functional Review → Review if validation passes
+- move Functional Review → Blocked if validation fails
 
 Must NOT:
 
 - create cards
 - implement fixes
+- move cards to Done
+
+## Code Reviewer Agent
+
+May:
+
+- read cards in Code Review
+- add code review comments
+- move Code Review → Functional Review if validation passes
+- move Code Review → Blocked if validation fails
+
+Must NOT:
+
+- implement fixes
+- perform functional acceptance review
 - move cards to Done
 
 ---
@@ -90,11 +119,14 @@ Allowed transitions:
 | Agent | From | To |
 |---|---|---|
 | Orchestrator | Backlog | Ready |
+| Developer | Ready | In Progress |
+| Developer | In Progress | Code Review |
+| Code Reviewer | Code Review | Functional Review |
+| Code Reviewer | Code Review | Blocked |
+| Reviewer | Functional Review | Review |
+| Reviewer | Functional Review | Blocked |
 | Orchestrator | Review | Done |
 | Orchestrator | Any | Blocked |
-| Developer | Ready | In Progress |
-| Developer | In Progress | Review |
-| Reviewer | Review | Blocked |
 
 No other transition is allowed without human approval.
 
@@ -114,7 +146,7 @@ Every card must include:
 - ...
 
 ## Suggested Agent
-Developer / Reviewer / Orchestrator
+Developer / Code Reviewer / Reviewer / Orchestrator
 
 ## Validation Commands
 - ...
@@ -148,8 +180,9 @@ Before implementing a Trello task, the Developer Agent must:
 3. Move the card to In Progress.
 4. Add a comment explaining the transition.
 5. Implement only the task scope.
-6. Move the card to Review when finished.
-7. Add a final implementation comment.
+6. Add the PR URL to the Trello card when GitHub PR workflow is enabled.
+7. Move the card to Code Review when finished.
+8. Add a final implementation comment.
 
 If the card is not in Ready, the Developer Agent must stop.
 
@@ -160,11 +193,12 @@ If the card is not in Ready, the Developer Agent must stop.
 Before reviewing a Trello task, the Reviewer Agent must:
 
 1. Read the requested card by task ID.
-2. Confirm the card is in Review.
-3. Review only that task scope.
-4. Add a review comment.
-5. If validation fails, move Review → Blocked.
-6. If validation passes, leave the task in Review for Orchestrator approval.
+2. Confirm the card is in Functional Review.
+3. Confirm Code Reviewer has passed the PR.
+4. Review only that task scope.
+5. Add a review comment.
+6. If validation fails, move Functional Review → Blocked.
+7. If validation passes, move Functional Review → Review for Orchestrator approval.
 
 ---
 

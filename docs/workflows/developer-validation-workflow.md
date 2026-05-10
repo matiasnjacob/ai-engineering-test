@@ -36,6 +36,31 @@ The Developer Agent must:
 
 ---
 
+# GitHub PR Requirements
+
+When GitHub PR workflow is enabled, the Developer Agent must:
+
+1. Read the Trello task.
+2. Confirm it is in Ready.
+3. Create a branch using the Task ID.
+4. Implement only the task scope.
+5. Run validation commands.
+6. Commit scoped changes.
+7. Push the branch.
+8. Create a GitHub PR.
+9. Add the PR URL to the Trello card.
+10. Move the Trello card from In Progress to Code Review.
+
+The Developer Agent must NOT:
+
+- push directly to main
+- create a PR without Task ID
+- mix multiple tasks in one PR
+- include generated artifacts
+- move cards to Functional Review, Review, or Done
+
+---
+
 # Validation Commands
 
 Run when relevant:
