@@ -173,8 +173,8 @@ Code Review -> Blocked
 The Code Reviewer Agent must NOT move:
 
 ```text
-Functional Review -> Review
-Review -> Done
+Functional Review -> Code Review
+Code Review -> Done
 Any -> Done
 ```
 

@@ -33,7 +33,7 @@ When GitHub PR workflow is enabled, the Reviewer Agent must:
 4. Validate acceptance criteria.
 5. Validate runtime behavior when possible.
 6. Add functional review findings as a Trello comment.
-7. Move Functional Review → Review if PASS.
+7. Move Functional Review → Ready To Release if PASS.
 8. Move Functional Review → Blocked if FAIL.
 
 The Reviewer Agent must not perform code review unless explicitly requested.

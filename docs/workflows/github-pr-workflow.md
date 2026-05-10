@@ -146,9 +146,9 @@ When GitHub PR workflow is enabled:
 | Developer | In Progress | Code Review |
 | Code Reviewer | Code Review | Functional Review |
 | Code Reviewer | Code Review | Blocked |
-| Reviewer | Functional Review | Review |
+| Reviewer | Functional Review | Ready To Release |
 | Reviewer | Functional Review | Blocked |
-| Orchestrator | Review | Done |
+| Orchestrator | Ready To Release | Done |
 
 ---
 

@@ -17,7 +17,7 @@ Use these lists:
 - In Progress
 - Code Review
 - Functional Review
-- Review
+- Ready To Release
 - Blocked
 - Done
 
@@ -28,7 +28,7 @@ Use these lists:
 - In Progress: Developer is actively working.
 - Code Review: PR is ready for Code Reviewer.
 - Functional Review: code review passed and task is ready for functional validation.
-- Review: functional validation passed and task is ready for Orchestrator closure.
+- Ready To Release: functional validation passed and task is ready for Orchestrator closure.
 - Blocked: task failed validation or needs human decision.
 - Done: Orchestrator approved final completion.
 
@@ -55,7 +55,7 @@ May:
 - create cards
 - prioritize cards
 - move Backlog → Ready
-- move Review → Done
+- move Ready To Release → Done
 - move any task → Blocked
 - create remediation tasks from reviewer findings
 
@@ -86,7 +86,7 @@ May:
 
 - read cards in Functional Review
 - add review comments
-- move Functional Review → Review if validation passes
+- move Functional Review → Ready To Release if validation passes
 - move Functional Review → Blocked if validation fails
 
 Must NOT:
@@ -123,9 +123,9 @@ Allowed transitions:
 | Developer | In Progress | Code Review |
 | Code Reviewer | Code Review | Functional Review |
 | Code Reviewer | Code Review | Blocked |
-| Reviewer | Functional Review | Review |
+| Reviewer | Functional Review | Ready To Release |
 | Reviewer | Functional Review | Blocked |
-| Orchestrator | Review | Done |
+| Orchestrator | Ready To Release | Done |
 | Orchestrator | Any | Blocked |
 
 No other transition is allowed without human approval.
@@ -198,7 +198,7 @@ Before reviewing a Trello task, the Reviewer Agent must:
 4. Review only that task scope.
 5. Add a review comment.
 6. If validation fails, move Functional Review → Blocked.
-7. If validation passes, move Functional Review → Review for Orchestrator approval.
+7. If validation passes, move Functional Review → Ready To Release for Orchestrator approval.
 
 ---
 
@@ -208,9 +208,9 @@ Before moving a card Review → Done, the Orchestrator Agent must:
 
 1. Read the card.
 2. Confirm reviewer output exists.
-3. Confirm Review Status is PASS.
+3. Confirm Ready To Release Status is PASS.
 4. Confirm there are no blocker findings.
-5. Move Review → Done.
+5. Move Ready To Release → Done.
 6. Add final approval comment.
 
 ---

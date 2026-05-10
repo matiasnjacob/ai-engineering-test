@@ -13,7 +13,7 @@ Operational validation is required.
 
 The Developer Agent must:
 
-1. Read AGENTS.md.
+1. Read ../../AGENTS.md.
 2. Read the requested task.
 3. Confirm scope.
 4. Confirm architecture boundaries.
