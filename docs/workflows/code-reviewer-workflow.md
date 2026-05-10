@@ -13,8 +13,9 @@ The Code Reviewer focuses on:
 - scope control
 - test quality
 - PR hygiene
+- targeted smoke checks when needed to support the technical review decision
 
-The Code Reviewer does not replace the functional Reviewer Agent.
+The Code Reviewer does not replace the functional Reviewer Agent. Smoke checks are allowed, but full acceptance criteria validation remains the responsibility of the Reviewer Agent in Functional Review.
 
 ---
 
@@ -31,6 +32,9 @@ Validates:
 - maintainability
 - test quality
 - scope discipline
+- validation evidence
+- targeted smoke checks when relevant and feasible
+- GitHub PR review decision
 
 ## Functional Reviewer Agent
 
@@ -67,8 +71,10 @@ The Code Reviewer Agent must:
 4. Confirm the PR title includes the Task ID.
 5. Confirm the branch name includes the Task ID.
 6. Review only the PR diff.
-7. Add review findings to GitHub or Trello.
-8. Move the Trello card:
+7. Run validation commands and targeted smoke checks when relevant and feasible.
+8. Submit a GitHub PR review with findings and a decision.
+9. Add review findings to Trello.
+10. Move the Trello card:
    - Code Review -> Functional Review if PASS
    - Code Review -> Blocked if FAIL
 
@@ -93,6 +99,49 @@ The Code Reviewer Agent must validate:
 - tests are meaningful and scoped
 - code is readable and maintainable
 - implementation avoids unnecessary abstractions
+- targeted smoke checks pass when they are needed to evaluate technical behavior
+
+---
+
+## GitHub Review Requirements
+
+The Code Reviewer Agent must create a GitHub PR review before moving the Trello card.
+
+Use:
+
+```bash
+gh pr review <PR> --approve --body "<review body>"
+gh pr review <PR> --request-changes --body "<review body>"
+gh pr review <PR> --comment --body "<review body>"
+```
+
+Rules:
+
+- Use `--approve` only when Code Review Status is PASS.
+- Use `--request-changes` when Code Review Status is FAIL.
+- Use `--comment` only when environment or permission limits prevent an approval decision.
+- Include all findings in the review body.
+- Add inline GitHub comments for precise file/line findings when feasible.
+- If inline comments are not feasible, include file and line references in the review body.
+- Do not merge the PR.
+- Do not delete branches.
+
+---
+
+## Smoke Check Rules
+
+Smoke checks are allowed only to support the technical review decision.
+
+Allowed examples:
+
+- run the API or relevant service locally when required dependencies are available
+- call a changed endpoint with a minimal valid request
+- verify a changed UI route renders without obvious runtime failure
+- execute the validation commands listed in the PR or Trello task
+
+Smoke checks must not replace Functional Review.
+
+The Code Reviewer Agent must not claim that full acceptance criteria are satisfied. It may only state whether smoke checks passed and whether the PR is ready for Functional Review.
 
 ---
 
@@ -109,6 +158,7 @@ Return FAIL if:
 - generated artifacts are included
 - technology baseline is changed without approval
 - code introduces risky complexity
+- required smoke checks fail when they are necessary for technical confidence
 
 Return PASS only if:
 
@@ -116,6 +166,7 @@ Return PASS only if:
 - code quality is acceptable
 - architecture boundaries are respected
 - validation evidence exists
+- required smoke checks pass or are not needed
 - no BLOCKER findings remain
 - remaining risks are acceptable for functional review
 
@@ -192,8 +243,10 @@ PASS / FAIL
 - Task ID:
 - Branch:
 - PR:
+- GitHub Review:
 - Scope:
 - Validation Evidence:
+- Smoke Checks:
 
 ## Architecture Review
 - API Layer:
@@ -236,6 +289,8 @@ The Code Reviewer should prioritize:
 - clean architecture
 - clear tests
 - explicit validation evidence
+- useful GitHub review comments
+- targeted smoke checks when they improve confidence
 - avoiding overengineering
 
 The Code Reviewer should avoid:
@@ -245,3 +300,4 @@ The Code Reviewer should avoid:
 - performing functional review
 - approving without evidence
 - expanding task scope
+- merging PRs

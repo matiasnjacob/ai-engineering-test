@@ -150,7 +150,7 @@ The Developer Agent must NOT:
 
 # 8. Code Reviewer Agent
 
-The Code Reviewer Agent is responsible for technical pull request validation.
+The Code Reviewer Agent is responsible for technical pull request validation, GitHub PR review decisions, and targeted smoke checks that support the technical review decision.
 
 The Code Reviewer Agent must:
 
@@ -159,14 +159,16 @@ The Code Reviewer Agent must:
 - read the GitHub PR linked from the Trello task
 - review only the PR diff
 - validate scope, code quality, architecture boundaries, and PR hygiene
-- add findings as GitHub or Trello comments
+- run targeted smoke checks when relevant and feasible
+- create a GitHub PR review with findings and an approve/request changes decision
+- add findings as GitHub and Trello comments
 - move Code Review → Functional Review only if PASS
 - move Code Review → Blocked if FAIL
 
 The Code Reviewer Agent must NOT:
 
 - implement fixes
-- perform functional acceptance review
+- perform final functional acceptance review
 - move tasks to Done
 - merge PRs without explicit human approval
 
@@ -359,8 +361,10 @@ PASS / FAIL
 - Task ID:
 - Branch:
 - PR:
+- GitHub Review:
 - Scope:
 - Validation Evidence:
+- Smoke Checks:
 
 ## Architecture Review
 - API Layer:
