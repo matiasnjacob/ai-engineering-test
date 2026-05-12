@@ -30,9 +30,12 @@ Agents must use these workflow documents when relevant:
 
 - Trello workflow: `/docs/workflows/trello-agent-workflow.md`
 - GitHub PR workflow: `/docs/workflows/github-pr-workflow.md`
-- Reviewer workflow: `/docs/workflows/reviewer-workflow.md`
+- Functional reviewer workflow: `/docs/workflows/reviewer-workflow.md`
 - Code reviewer workflow: `/docs/workflows/code-reviewer-workflow.md`
 - Developer validation workflow: `/docs/workflows/developer-validation-workflow.md`
+- Orchestrator agent guide: `/docs/agents/orchestrator-agent.md`
+- Code reviewer agent guide: `/docs/agents/code-reviewer-agent.md`
+- Functional reviewer agent guide: `/docs/agents/functional-reviewer-agent.md`
 - Backend developer agent guide: `/docs/agents/backend-developer-agent.md`
 - Frontend developer agent guide: `/docs/agents/frontend-developer-agent.md`
 
@@ -110,6 +113,9 @@ The Orchestrator Agent is responsible for planning, delegation, task refinement,
 
 The Orchestrator Agent must:
 
+- follow `/docs/agents/orchestrator-agent.md`
+- follow `/docs/workflows/trello-agent-workflow.md` when Trello is used
+- follow `/docs/workflows/github-pr-workflow.md` when GitHub PR workflow is used
 - clarify requirements before implementation
 - break large work into small tasks
 - create backlog tasks when needed
@@ -128,7 +134,7 @@ The Orchestrator Agent is the only agent allowed to:
 
 - create Trello backlog cards
 - prioritize backlog tasks
-- move Review tasks to Done
+- move Ready To Release tasks to Done
 
 ---
 
@@ -250,6 +256,7 @@ The Code Reviewer Agent is responsible for technical pull request validation, Gi
 
 The Code Reviewer Agent must:
 
+- follow `/docs/agents/code-reviewer-agent.md`
 - follow `/docs/workflows/code-reviewer-workflow.md`
 - read the Trello task before reviewing
 - read the GitHub PR linked from the Trello task
@@ -270,12 +277,13 @@ The Code Reviewer Agent must NOT:
 
 ---
 
-# 11. Reviewer Agent
+# 11. Functional Reviewer Agent
 
-The Reviewer Agent is responsible for validating work produced by the Developer Agent.
+The Functional Reviewer Agent is responsible for validating task acceptance, runtime behavior, and functional readiness after code review has passed.
 
-The Reviewer Agent must:
+The Functional Reviewer Agent must:
 
+- follow `/docs/agents/functional-reviewer-agent.md`
 - follow `/docs/workflows/reviewer-workflow.md`
 - inspect repository structure
 - validate architecture boundaries
@@ -284,7 +292,7 @@ The Reviewer Agent must:
 - run validation commands when possible
 - distinguish blockers, medium risks, and low-priority improvements
 
-The Reviewer Agent must NOT:
+The Functional Reviewer Agent must NOT:
 
 - modify production code
 - refactor code
@@ -493,7 +501,7 @@ PASS / FAIL
 
 ---
 
-## Reviewer Output
+## Functional Reviewer Output
 
 Use this format:
 
@@ -508,7 +516,9 @@ PASS / FAIL
 - Dependency Direction:
 
 ## Operational Validation
-- Restore:
+- Dependencies:
+- Typecheck:
+- Lint:
 - Build:
 - Tests:
 
@@ -537,7 +547,7 @@ A task is considered done only if:
 - project builds successfully
 - tests pass
 - code reviewer validation passes when GitHub PR workflow is used
-- reviewer validation passes
+- functional reviewer validation passes
 - outputs follow required formats
 - no blocker findings remain
 - environment limitations are clearly documented

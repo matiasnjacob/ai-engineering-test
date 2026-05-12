@@ -62,7 +62,7 @@ May:
 Must NOT:
 
 - implement tasks
-- mark work Done without reviewer validation
+- mark work Done without Code Reviewer and Functional Reviewer validation when those gates are enabled
 
 ## Developer Agent
 
@@ -80,7 +80,7 @@ Must NOT:
 - move cards to Done
 - modify unrelated cards
 
-## Reviewer Agent
+## Functional Reviewer Agent
 
 May:
 
@@ -125,8 +125,8 @@ Allowed transitions:
 | Developer | In Progress | Code Review |
 | Code Reviewer | Code Review | Functional Review |
 | Code Reviewer | Code Review | Blocked |
-| Reviewer | Functional Review | Ready To Release |
-| Reviewer | Functional Review | Blocked |
+| Functional Reviewer | Functional Review | Ready To Release |
+| Functional Reviewer | Functional Review | Blocked |
 | Orchestrator | Ready To Release | Done |
 | Orchestrator | Any | Blocked |
 
@@ -148,7 +148,7 @@ Every card must include:
 - ...
 
 ## Suggested Agent
-Developer / Code Reviewer / Reviewer / Orchestrator
+Developer / Code Reviewer / Functional Reviewer / Orchestrator
 
 ## Validation Commands
 - ...
@@ -210,26 +210,27 @@ The Code Reviewer Agent must not perform final functional acceptance review.
 
 ---
 
-# Reviewer Start Protocol
+# Functional Reviewer Start Protocol
 
-Before reviewing a Trello task, the Reviewer Agent must:
+Before reviewing a Trello task, the Functional Reviewer Agent must:
 
 1. Read the requested card by task ID.
 2. Confirm the card is in Functional Review.
 3. Confirm Code Reviewer has passed the PR.
 4. Review only that task scope.
-5. Add a review comment.
-6. If validation fails, move Functional Review → Blocked.
-7. If validation passes, move Functional Review → Ready To Release for Orchestrator approval.
+5. Validate acceptance criteria and runtime behavior when feasible.
+6. Add a review comment.
+7. If validation fails, move Functional Review → Blocked.
+8. If validation passes, move Functional Review → Ready To Release for Orchestrator approval.
 
 ---
 
 # Orchestrator Completion Protocol
 
-Before moving a card Review → Done, the Orchestrator Agent must:
+Before moving a card Ready To Release → Done, the Orchestrator Agent must:
 
 1. Read the card.
-2. Confirm reviewer output exists.
+2. Confirm Functional Reviewer output exists.
 3. Confirm Ready To Release Status is PASS.
 4. Confirm there are no blocker findings.
 5. Move Ready To Release → Done.
@@ -245,4 +246,4 @@ Agents must never:
 - skip status validation
 - move tasks without a comment
 - work on tasks not explicitly requested
-- close tasks without reviewer validation
+- close tasks without required reviewer validation

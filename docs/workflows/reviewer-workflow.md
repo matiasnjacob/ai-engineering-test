@@ -1,16 +1,28 @@
-# Reviewer Workflow
+# Functional Reviewer Workflow
 
 # Purpose
 
-The Reviewer Agent validates implementation quality, architecture boundaries, operational evidence, and task completion.
+The Functional Reviewer Agent validates task acceptance, runtime behavior, architecture boundaries, operational evidence, and task completion.
 
-The Reviewer Agent recommends. The human or Orchestrator gives final approval.
+The Functional Reviewer Agent recommends. The human or Orchestrator gives final approval.
+
+---
+
+# Required Inputs
+
+Before reviewing, the Functional Reviewer Agent must read:
+
+- AGENTS.md
+- /docs/agents/functional-reviewer-agent.md
+- /docs/workflows/trello-agent-workflow.md when Trello is used
+- /docs/workflows/github-pr-workflow.md when GitHub PR workflow is used
+- the requested task and Code Reviewer output when available
 
 ---
 
 # Review Scope
 
-The Reviewer Agent must validate:
+The Functional Reviewer Agent must validate:
 
 - task scope
 - architecture boundaries
@@ -25,7 +37,7 @@ The Reviewer Agent must validate:
 
 # Functional Review Start Protocol
 
-When GitHub PR workflow is enabled, the Reviewer Agent must:
+When GitHub PR workflow is enabled, the Functional Reviewer Agent must:
 
 1. Read the requested Trello task.
 2. Confirm the task is in Functional Review.
@@ -36,7 +48,7 @@ When GitHub PR workflow is enabled, the Reviewer Agent must:
 7. Move Functional Review → Ready To Release if PASS.
 8. Move Functional Review → Blocked if FAIL.
 
-The Reviewer Agent must not perform code review unless explicitly requested.
+The Functional Reviewer Agent must not perform code review unless explicitly requested.
 
 ---
 
@@ -106,7 +118,7 @@ Return PASS only if:
 
 ---
 
-# Reviewer Output
+# Functional Reviewer Output
 
 Use exactly this format:
 
@@ -124,7 +136,9 @@ PASS / FAIL
 
 ## Operational Validation
 
-- Restore:
+- Dependencies:
+- Typecheck:
+- Lint:
 - Build:
 - Tests:
 

@@ -150,8 +150,8 @@ When GitHub PR workflow is enabled:
 | Developer | In Progress | Code Review |
 | Code Reviewer | Code Review | Functional Review |
 | Code Reviewer | Code Review | Blocked |
-| Reviewer | Functional Review | Ready To Release |
-| Reviewer | Functional Review | Blocked |
+| Functional Reviewer | Functional Review | Ready To Release |
+| Functional Reviewer | Functional Review | Blocked |
 | Orchestrator | Ready To Release | Done |
 
 ---
@@ -176,7 +176,7 @@ A task cannot move to Done until:
 
 - Code Review is complete
 - Functional Review is complete
-- Reviewer status is PASS
+- Functional Reviewer status is PASS
 - no BLOCKER findings remain
 - Orchestrator confirms final approval
 

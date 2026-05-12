@@ -6,7 +6,7 @@ This document collects reusable prompts for practicing multi-agent governance wi
 
 * Orchestrator Agent
 * Developer Agent
-* Reviewer Agent
+* Functional Reviewer Agent
 * Trello MCP
 * AGENTS.md
 * workflow documentation
@@ -23,7 +23,7 @@ Use this setup for all exercises.
 opencode . --agent orchestrator --model openai/gpt-5.5
 opencode . --agent developer --model openai/gpt-5.5
 opencode . --agent code-reviewer --model openai/gpt-5.5
-opencode . --agent reviewer --model openai/gpt-5.5
+opencode . --agent functional-reviewer --model openai/gpt-5.5
 ```
 
 ### Orchestrator Pane
@@ -31,6 +31,7 @@ opencode . --agent reviewer --model openai/gpt-5.5
 Read:
 - AGENTS.md
 - docs/workflows/trello-agent-workflow.md
+- docs/agents/orchestrator-agent.md
 
 You are the Orchestrator Agent.
 Do not implement code.
@@ -41,7 +42,7 @@ Your responsibilities:
 - generate Developer handoffs by Task ID
 - evaluate Reviewer findings
 - create remediation tasks when needed
-- move Ready To Release → Done only after Reviewer PASS
+- move Ready To Release → Done only after Functional Reviewer PASS
 Use structured output.
 
 ### Developer Pane
@@ -73,6 +74,7 @@ Read:
 - docs/workflows/code-reviewer-workflow.md
 - docs/workflows/github-pr-workflow.md
 - docs/workflows/trello-agent-workflow.md
+- docs/agents/code-reviewer-agent.md
 
 You are the Code Reviewer Agent.
 Review only the requested Task ID.
@@ -93,13 +95,14 @@ Do not perform final functional acceptance review.
 Do not move tasks to Done.
 Return using the Code Reviewer Output format.
 
-### Reviewer Pane
+### Functional Reviewer Pane
 
 Read:
 - AGENTS.md
 - docs/workflows/reviewer-workflow.md
 - docs/workflows/trello-agent-workflow.md
-You are the Reviewer Agent.
+- docs/agents/functional-reviewer-agent.md
+You are the Functional Reviewer Agent.
 Review only the requested Task ID.
 Use Trello MCP:
 1. Read the requested task card.
@@ -114,7 +117,7 @@ Use Trello MCP:
 Do not modify files.
 Do not create Trello cards.
 Do not move tasks to Done.
-Return using the Reviewer Output format.
+Return using the Functional Reviewer Output format.
 
 ⸻
 
@@ -124,7 +127,7 @@ Goal
 
 Practice the basic end-to-end governance flow:
 
-Human → Orchestrator → Trello Backlog → Developer → Code Review → Reviewer → Orchestrator → Done
+Human → Orchestrator → Trello Backlog → Developer → Code Review → Functional Review → Orchestrator → Done
 
 ## Orchestrator Start Prompt
 
@@ -201,13 +204,14 @@ Use Trello MCP:
 7. Move <TASK-ID> to Code Review.
 Return using the Developer Output format.
 
-## Reviewer Review Task By ID
+## Functional Reviewer Review Task By ID
 
 Review only task <TASK-ID>.
 Read:
 - AGENTS.md
 - docs/workflows/reviewer-workflow.md
 - docs/workflows/trello-agent-workflow.md
+- docs/agents/functional-reviewer-agent.md
 Use Trello MCP:
 1. Read <TASK-ID>.
 2. Confirm it is in Functional Review.
@@ -218,7 +222,7 @@ Use Trello MCP:
 7. Add review findings as a Trello comment.
 8. If FAIL, move <TASK-ID> to Blocked.
 9. If PASS, move <TASK-ID> to Ready To Release.
-Return using the Reviewer Output format.
+Return using the Functional Reviewer Output format.
 
 ## Code Reviewer Review PR By Task ID
 
@@ -228,6 +232,7 @@ Read:
 - docs/workflows/code-reviewer-workflow.md
 - docs/workflows/github-pr-workflow.md
 - docs/workflows/trello-agent-workflow.md
+- docs/agents/code-reviewer-agent.md
 Use Trello MCP and GitHub CLI:
 1. Read <TASK-ID>.
 2. Confirm it is in Code Review.
@@ -249,7 +254,7 @@ Review task <TASK-ID> for final approval.
 Use Trello MCP:
 1. Read <TASK-ID>.
 2. Confirm it is in Ready To Release.
-3. Confirm Reviewer status is PASS.
+3. Confirm Functional Reviewer status is PASS.
 4. Confirm no blocker findings remain.
 5. Move <TASK-ID> from Ready To Release to Done.
 6. Add final approval comment.

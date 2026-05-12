@@ -15,7 +15,7 @@ The Code Reviewer focuses on:
 - PR hygiene
 - targeted smoke checks when needed to support the technical review decision
 
-The Code Reviewer does not replace the functional Reviewer Agent. Smoke checks are allowed, but full acceptance criteria validation remains the responsibility of the Reviewer Agent in Functional Review.
+The Code Reviewer does not replace the Functional Reviewer Agent. Smoke checks are allowed, but full acceptance criteria validation remains the responsibility of the Functional Reviewer Agent in Functional Review.
 
 ---
 
@@ -54,6 +54,7 @@ Validates:
 Before reviewing, the Code Reviewer Agent must read:
 
 - AGENTS.md
+- /docs/agents/code-reviewer-agent.md
 - /docs/workflows/github-pr-workflow.md
 - /docs/workflows/trello-agent-workflow.md
 - the Trello task card
