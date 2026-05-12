@@ -112,6 +112,8 @@ Trello: <TASK-ID>
 - [ ] Run typecheck when available
 - [ ] Run lint when available
 - [ ] Run tests when available
+- [ ] Run end-to-end tests when available and relevant
+- [ ] Run accessibility tests when available and relevant
 - [ ] Run build when available
 
 ## Architecture Notes

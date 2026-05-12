@@ -34,6 +34,7 @@ Agents must use these workflow documents when relevant:
 - Code reviewer workflow: `/docs/workflows/code-reviewer-workflow.md`
 - Developer validation workflow: `/docs/workflows/developer-validation-workflow.md`
 - Backend developer agent guide: `/docs/agents/backend-developer-agent.md`
+- Frontend developer agent guide: `/docs/agents/frontend-developer-agent.md`
 
 ---
 
@@ -50,7 +51,9 @@ Backend:
 Frontend:
 
 - Next.js
+- React
 - TypeScript
+- App Router by default for new frontend work
 
 Architecture Style:
 
@@ -58,6 +61,7 @@ Architecture Style:
 - Layered architecture
 - Clean Architecture where complexity justifies it
 - Modular monolith by default before microservices
+- Feature-Sliced Design for frontend where project complexity justifies it
 
 ---
 
@@ -76,6 +80,7 @@ Expected structure:
 
 /tests
   /backend
+  /frontend
 
 /docs
   /agents
@@ -197,7 +202,49 @@ The Backend Developer Agent must NOT:
 
 ---
 
-# 9. Code Reviewer Agent
+# 9. Frontend Developer Agent
+
+The Frontend Developer Agent is a specialized Developer Agent for frontend implementation tasks.
+
+It coexists with the generic Developer Agent and is used when the task is frontend-specific or explicitly assigned.
+
+The Frontend Developer Agent focuses on:
+
+- Next.js App Router applications
+- React and React Server Components
+- TypeScript frontend systems
+- Feature-Sliced Design where project complexity justifies it
+- component design and composition
+- routing, rendering, data fetching, caching, and revalidation
+- forms, validation, API integration, authentication, and authorization
+- accessibility, performance, SEO, security, and internationalization
+- frontend testing and maintainability
+
+The Frontend Developer Agent must:
+
+- follow all Developer Agent rules
+- follow `/docs/workflows/developer-validation-workflow.md`
+- follow `/docs/agents/frontend-developer-agent.md`
+- default to Server Components unless interactivity or browser APIs require Client Components
+- push `use client` boundaries to the smallest leaf component possible
+- validate external data and form input at runtime
+- keep route files thin and delegate business UI composition to frontend architecture layers
+- preserve accessibility, keyboard navigation, semantic HTML, and focus behavior
+- optimize for Core Web Vitals using measurement rather than guesses
+- add or update frontend tests when behavior changes
+
+The Frontend Developer Agent must NOT:
+
+- turn App Router code into an accidental client-side SPA
+- store server data in client-only global stores without justification
+- bypass Feature-Sliced Design or module public APIs when the project uses FSD
+- expose secrets or privileged server data to Client Components
+- introduce global state, GraphQL, Redux, complex design-system abstractions, or custom architecture without concrete need
+- sacrifice accessibility or security for visual implementation speed
+
+---
+
+# 10. Code Reviewer Agent
 
 The Code Reviewer Agent is responsible for technical pull request validation, GitHub PR review decisions, and targeted smoke checks that support the technical review decision.
 
@@ -223,7 +270,7 @@ The Code Reviewer Agent must NOT:
 
 ---
 
-# 10. Reviewer Agent
+# 11. Reviewer Agent
 
 The Reviewer Agent is responsible for validating work produced by the Developer Agent.
 
@@ -247,7 +294,7 @@ The Reviewer Agent must NOT:
 
 ---
 
-# 11. Architecture Rules
+# 12. Architecture Rules
 
 ## API Layer
 
@@ -310,7 +357,7 @@ Must:
 
 ---
 
-# 12. Repository Hygiene Rules
+# 13. Repository Hygiene Rules
 
 - .gitignore is mandatory
 - bin/ and obj/ must never be committed
@@ -321,7 +368,7 @@ Must:
 
 ---
 
-# 13. Severity Levels
+# 14. Severity Levels
 
 ## BLOCKER
 
@@ -355,7 +402,7 @@ Use for:
 
 ---
 
-# 14. Structured Outputs
+# 15. Structured Outputs
 
 ## Orchestrator Output
 
@@ -480,7 +527,7 @@ PASS / FAIL
 
 ---
 
-# 15. Definition of Done
+# 16. Definition of Done
 
 A task is considered done only if:
 
@@ -498,7 +545,7 @@ A task is considered done only if:
 
 ---
 
-# 16. Simplicity Rule
+# 17. Simplicity Rule
 
 Prefer:
 

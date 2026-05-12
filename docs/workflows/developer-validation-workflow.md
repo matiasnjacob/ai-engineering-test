@@ -28,8 +28,8 @@ The Developer Agent must:
 
 - implement only the approved task
 - keep changes small
-- respect the approved TypeScript and Node.js backend baseline
-- avoid unapproved runtime, framework, package manager, or persistence changes
+- respect the approved TypeScript, Node.js, and framework baseline
+- avoid unapproved runtime, framework, package manager, styling system, or persistence changes
 - avoid unrelated refactors
 - update tests when relevant
 - update README when setup or usage changes
@@ -72,10 +72,12 @@ npm install
 npm run typecheck --if-present
 npm run lint --if-present
 npm test --if-present
+npm run test:e2e --if-present
+npm run test:a11y --if-present
 npm run build --if-present
 ```
 
-Use the repository's existing package manager and scripts. If the project uses `pnpm`, `yarn`, `bun`, or another approved tool, run the equivalent install, typecheck, lint, test, and build commands and report the exact commands used.
+Use the repository's existing package manager and scripts. If the project uses `pnpm`, `yarn`, `bun`, or another approved tool, run the equivalent install, typecheck, lint, unit test, end-to-end test, accessibility test, and build commands when available and report the exact commands used.
 
 ---
 

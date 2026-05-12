@@ -70,6 +70,8 @@ npm install
 npm run typecheck --if-present
 npm run lint --if-present
 npm test --if-present
+npm run test:e2e --if-present
+npm run test:a11y --if-present
 npm run build --if-present
 git status --short
 ```
