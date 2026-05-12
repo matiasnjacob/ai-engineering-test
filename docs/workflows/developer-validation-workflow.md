@@ -28,8 +28,8 @@ The Developer Agent must:
 
 - implement only the approved task
 - keep changes small
-- respect .NET 8
-- avoid unapproved framework upgrades
+- respect the approved TypeScript and Node.js backend baseline
+- avoid unapproved runtime, framework, package manager, or persistence changes
 - avoid unrelated refactors
 - update tests when relevant
 - update README when setup or usage changes
@@ -66,13 +66,16 @@ The Developer Agent must NOT:
 Run when relevant:
 
 ```bash
-dotnet --info
-dotnet --list-sdks
-dotnet restore src/backend/Binagora.Backend.sln
-dotnet build src/backend/Binagora.Backend.sln -c Release
-dotnet test src/backend/Binagora.Backend.sln -c Release
-find src tests -type f
+node --version
+npm --version
+npm install
+npm run typecheck --if-present
+npm run lint --if-present
+npm test --if-present
+npm run build --if-present
 ```
+
+Use the repository's existing package manager and scripts. If the project uses `pnpm`, `yarn`, `bun`, or another approved tool, run the equivalent install, typecheck, lint, test, and build commands and report the exact commands used.
 
 ---
 
@@ -92,8 +95,12 @@ The Developer Agent must:
 
 Build and test commands may generate:
 
-- bin/
-- obj/
+- node_modules/
+- dist/
+- build/
+- coverage/
+- .next/
+- *.tsbuildinfo
 
 These artifacts are acceptable only if:
 

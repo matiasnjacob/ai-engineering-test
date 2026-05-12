@@ -33,6 +33,7 @@ Agents must use these workflow documents when relevant:
 - Reviewer workflow: `/docs/workflows/reviewer-workflow.md`
 - Code reviewer workflow: `/docs/workflows/code-reviewer-workflow.md`
 - Developer validation workflow: `/docs/workflows/developer-validation-workflow.md`
+- Backend developer agent guide: `/docs/agents/backend-developer-agent.md`
 
 ---
 
@@ -40,10 +41,11 @@ Agents must use these workflow documents when relevant:
 
 Backend:
 
-- .NET 8
-- ASP.NET Core Web API
-- xUnit
-- In-memory persistence for now
+- TypeScript
+- Node.js
+- Framework selected per task context: Express, Fastify, NestJS, or similar
+- Test framework selected per project: Vitest, Jest, or equivalent
+- Persistence selected per task context: PostgreSQL, Redis, queues, object storage, or in-memory persistence for learning tasks
 
 Frontend:
 
@@ -54,6 +56,8 @@ Architecture Style:
 
 - Pragmatic Domain-Driven Design
 - Layered architecture
+- Clean Architecture where complexity justifies it
+- Modular monolith by default before microservices
 
 ---
 
@@ -74,6 +78,7 @@ Expected structure:
   /backend
 
 /docs
+  /agents
   /workflows
 
 ---
@@ -144,11 +149,55 @@ The Developer Agent must NOT:
 - modify unrelated files
 - introduce unnecessary abstractions
 - upgrade the technology stack without approval
-- change the project from .NET 8 to another version
+- change the approved runtime, framework, package manager, or persistence baseline without approval
 
 ---
 
-# 8. Code Reviewer Agent
+# 8. Backend Developer Agent
+
+The Backend Developer Agent is a specialized Developer Agent for backend implementation tasks.
+
+It coexists with the generic Developer Agent and is used when the task is backend-specific or explicitly assigned.
+
+The Backend Developer Agent focuses on:
+
+- TypeScript backend systems
+- Node.js runtime behavior
+- API design
+- persistence and database modeling
+- transaction boundaries
+- pragmatic Domain-Driven Design
+- layered architecture and Clean Architecture where justified
+- backend testing
+- maintainability, scalability, performance, security, and observability
+
+The Backend Developer Agent must:
+
+- follow all Developer Agent rules
+- follow `/docs/workflows/developer-validation-workflow.md`
+- follow `/docs/agents/backend-developer-agent.md`
+- keep API, application, domain, and infrastructure responsibilities separate
+- prefer a modular monolith unless distribution is justified by team, domain, scaling, or deployment needs
+- validate input at system boundaries
+- keep business rules close to domain behavior when the domain is behavior-rich
+- keep CRUD use cases simple when DDD ceremony is not justified
+- define explicit persistence and transaction boundaries
+- avoid blocking the Node.js event loop with synchronous or CPU-heavy request-path work
+- add or update backend tests when behavior changes
+- report validation evidence using exact commands and results
+
+The Backend Developer Agent must NOT:
+
+- introduce microservices, event sourcing, CQRS, GraphQL, or complex DDD patterns without concrete need or approval
+- leak HTTP, framework, ORM, or persistence concerns into the Domain layer
+- hide business rules in controllers, route handlers, or persistence adapters
+- share database schemas across independently deployed services when a distributed architecture is chosen
+- optimize by guessing instead of measuring
+- add infrastructure complexity to compensate for unclear code or data modeling
+
+---
+
+# 9. Code Reviewer Agent
 
 The Code Reviewer Agent is responsible for technical pull request validation, GitHub PR review decisions, and targeted smoke checks that support the technical review decision.
 
@@ -174,7 +223,7 @@ The Code Reviewer Agent must NOT:
 
 ---
 
-# 9. Reviewer Agent
+# 10. Reviewer Agent
 
 The Reviewer Agent is responsible for validating work produced by the Developer Agent.
 
@@ -198,7 +247,7 @@ The Reviewer Agent must NOT:
 
 ---
 
-# 10. Architecture Rules
+# 11. Architecture Rules
 
 ## API Layer
 
@@ -244,7 +293,7 @@ Must:
 Must NOT:
 
 - depend on Infrastructure
-- depend on ASP.NET
+- depend on HTTP framework or runtime concerns
 - depend on persistence concerns
 
 ## Infrastructure Layer
@@ -261,7 +310,7 @@ Must:
 
 ---
 
-# 11. Repository Hygiene Rules
+# 12. Repository Hygiene Rules
 
 - .gitignore is mandatory
 - bin/ and obj/ must never be committed
@@ -272,7 +321,7 @@ Must:
 
 ---
 
-# 12. Severity Levels
+# 13. Severity Levels
 
 ## BLOCKER
 
@@ -306,7 +355,7 @@ Use for:
 
 ---
 
-# 13. Structured Outputs
+# 14. Structured Outputs
 
 ## Orchestrator Output
 
@@ -431,7 +480,7 @@ PASS / FAIL
 
 ---
 
-# 14. Definition of Done
+# 15. Definition of Done
 
 A task is considered done only if:
 
@@ -449,7 +498,7 @@ A task is considered done only if:
 
 ---
 
-# 15. Simplicity Rule
+# 16. Simplicity Rule
 
 Prefer:
 

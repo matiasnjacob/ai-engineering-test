@@ -65,12 +65,16 @@ Expected dependency direction:
 Run when possible:
 
 ```bash
-dotnet restore src/backend/Binagora.Backend.sln
-dotnet build src/backend/Binagora.Backend.sln -c Release
-dotnet test src/backend/Binagora.Backend.sln -c Release
+node --version
+npm install
+npm run typecheck --if-present
+npm run lint --if-present
+npm test --if-present
+npm run build --if-present
 git status --short
-find src tests -type f
 ```
+
+Use the repository's existing package manager and scripts. If the project uses `pnpm`, `yarn`, `bun`, or another approved tool, run the equivalent commands and report the exact commands used.
 
 If commands cannot be run, clearly explain:
 
@@ -86,7 +90,7 @@ Return FAIL if:
 
 - build fails
 - tests fail
-- .NET baseline is violated
+- approved runtime, framework, package manager, or persistence baseline is violated
 - architecture rules are violated
 - required validation was not executed
 - task acceptance criteria are not met

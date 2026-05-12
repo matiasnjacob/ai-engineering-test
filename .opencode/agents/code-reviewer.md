@@ -24,13 +24,13 @@ permission:
     "gh pr checkout*": ask
     "gh pr review*": ask
     "gh api*": ask
-    "dotnet --info*": allow
-    "dotnet --list-sdks*": allow
-    "dotnet restore*": ask
-    "dotnet build*": ask
-    "dotnet test*": ask
+    "node --version*": allow
+    "npm --version*": allow
+    "pnpm --version*": allow
     "npm*": ask
     "pnpm*": ask
+    "yarn*": ask
+    "bun*": ask
     "curl*": ask
   "github*": ask
   "trello*": ask

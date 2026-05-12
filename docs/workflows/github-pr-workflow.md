@@ -108,9 +108,11 @@ Trello: <TASK-ID>
 
 ## Validation
 
-- [ ] dotnet restore src/backend/Binagora.Backend.sln
-- [ ] dotnet build src/backend/Binagora.Backend.sln -c Release
-- [ ] dotnet test src/backend/Binagora.Backend.sln -c Release
+- [ ] Install dependencies with the approved package manager
+- [ ] Run typecheck when available
+- [ ] Run lint when available
+- [ ] Run tests when available
+- [ ] Run build when available
 
 ## Architecture Notes
 
