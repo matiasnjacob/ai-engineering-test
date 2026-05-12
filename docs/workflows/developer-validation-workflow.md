@@ -1,69 +1,22 @@
 # Developer Validation Workflow
 
-# Purpose
+Lightweight index for Developer Agent execution and validation.
 
-The Developer Agent must not only implement code, but also validate that the work can run.
+## Required Skill
 
-Implementation quality is not enough.
-Operational validation is required.
+- `developer-task-execution`
 
----
+## Required Rules
 
-# Before Implementation
+- Read `AGENTS.md` and the requested task before implementation.
+- Create `feature/task-{number}-{kebab-case-name}` before editing implementation files.
+- Implement only the approved task scope.
+- Run relevant validation commands and report exact results.
+- Do not move work to Functional Review or Done.
 
-The Developer Agent must:
+## Typical Validation Commands
 
-1. Read ../../AGENTS.md.
-2. Read the requested task.
-3. Confirm scope.
-4. Confirm architecture boundaries.
-5. Confirm current technology baseline.
-6. Ask questions if the task is ambiguous.
-
----
-
-# Implementation Rules
-
-The Developer Agent must:
-
-- implement only the approved task
-- keep changes small
-- respect the approved TypeScript, Node.js, and framework baseline
-- avoid unapproved runtime, framework, package manager, styling system, or persistence changes
-- avoid unrelated refactors
-- update tests when relevant
-- update README when setup or usage changes
-
----
-
-# GitHub PR Requirements
-
-When GitHub PR workflow is enabled, the Developer Agent must:
-
-1. Read the Trello task.
-2. Confirm it is in Ready.
-3. Create a branch using the Task ID.
-4. Implement only the task scope.
-5. Run validation commands.
-6. Commit scoped changes.
-7. Push the branch.
-8. Create a GitHub PR.
-9. Add the PR URL to the Trello card.
-10. Move the Trello card from In Progress to Code Review.
-
-The Developer Agent must NOT:
-
-- push directly to main
-- create a PR without Task ID
-- mix multiple tasks in one PR
-- include generated artifacts
-- move cards to Functional Review, Review, or Done
-
----
-
-# Validation Commands
-
-Run when relevant:
+Use the repository's approved package manager and scripts.
 
 ```bash
 node --version
@@ -77,61 +30,4 @@ npm run test:a11y --if-present
 npm run build --if-present
 ```
 
-Use the repository's existing package manager and scripts. If the project uses `pnpm`, `yarn`, `bun`, or another approved tool, run the equivalent install, typecheck, lint, unit test, end-to-end test, accessibility test, and build commands when available and report the exact commands used.
-
----
-
-# If Validation Fails
-
-The Developer Agent must:
-
-- stop and report the issue
-- include exact failing command
-- include relevant error output
-- explain what remains unverified
-- not claim completion
-
----
-
-# Generated Artifacts
-
-Build and test commands may generate:
-
-- node_modules/
-- dist/
-- build/
-- coverage/
-- .next/
-- *.tsbuildinfo
-
-These artifacts are acceptable only if:
-
-- ignored by .gitignore
-- not staged
-- not committed
-
----
-
-# Developer Output
-
-Use exactly this format:
-
-## Implementation Summary
-
-...
-
-## Files Changed
-
-...
-
-## Decisions
-
-...
-
-## Commands Run
-
-...
-
-## Remaining Issues
-
-...
+Full workflow details live in `.agents/skills/developer-task-execution/references/developer-validation-workflow.md`.

@@ -70,7 +70,7 @@ Start protocol:
 2. Confirm the Trello card is in `Code Review`; stop if it is not.
 3. Confirm the card contains a GitHub PR link; stop if it does not.
 4. Read the PR title, branch, body, commits, files, and diff.
-5. Confirm the PR title and branch include the Task ID.
+5. Confirm the PR title includes the Task ID and the branch follows `feature/task-{number}-{kebab-case-name}` unless an exception was approved.
 6. Confirm validation evidence exists in the PR body or implementation comments.
 7. Review only the PR diff and directly relevant surrounding code.
 8. Run validation commands from the Trello card or PR when feasible.
@@ -91,6 +91,7 @@ GitHub review rules:
 Decision rules:
 
 - Return FAIL for any BLOCKER finding.
+- Return FAIL when a developer feature branch violates `feature/task-{number}-{kebab-case-name}` without approved exception.
 - Return FAIL when required validation cannot be verified and that missing evidence affects confidence.
 - Return PASS only when the PR is scoped, maintainable, architecturally sound, has meaningful tests or justified test impact, has validation evidence, and has no BLOCKER findings.
 - LOW findings may remain on PASS when they do not block functional review.

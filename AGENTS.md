@@ -2,14 +2,9 @@
 
 # 1. Project Purpose
 
-This project is a learning environment for practicing multi-agent software development workflows using:
+This repository is a learning environment for disciplined multi-agent software development.
 
-- Orchestrator agents
-- Developer agents
-- Reviewer agents
-- Human-in-the-loop supervision
-
-The primary goals are:
+Primary goals:
 
 - clear task delegation
 - predictable structured outputs
@@ -18,30 +13,32 @@ The primary goals are:
 - maintainable implementation practices
 - backlog-driven execution
 
-This is not a rapid prototyping environment.
-
-Code quality, architectural discipline, and validation evidence are more important than speed.
+This is not a rapid prototyping environment. Code quality, scope control, architecture boundaries, and validation evidence are more important than speed.
 
 ---
 
-# 2. Core Workflow References
+# 2. Required Skills
 
-Agents must use these workflow documents when relevant:
+Agents must use the relevant skill before doing specialized work:
 
-- Trello workflow: `/docs/workflows/trello-agent-workflow.md`
-- GitHub PR workflow: `/docs/workflows/github-pr-workflow.md`
-- Functional reviewer workflow: `/docs/workflows/reviewer-workflow.md`
-- Code reviewer workflow: `/docs/workflows/code-reviewer-workflow.md`
-- Developer validation workflow: `/docs/workflows/developer-validation-workflow.md`
-- Orchestrator agent guide: `/docs/agents/orchestrator-agent.md`
-- Code reviewer agent guide: `/docs/agents/code-reviewer-agent.md`
-- Functional reviewer agent guide: `/docs/agents/functional-reviewer-agent.md`
-- Backend developer agent guide: `/docs/agents/backend-developer-agent.md`
-- Frontend developer agent guide: `/docs/agents/frontend-developer-agent.md`
+- Orchestration: `orchestrator-governance`
+- Developer execution: `developer-task-execution`
+- Backend implementation: `backend-typescript-architecture`
+- Frontend implementation: `frontend-next-architecture`
+- Code review: `code-review-pr`
+- Functional review: `functional-review`
+- Trello governance: `trello-workflow-governance`
+- GitHub PR workflow: `github-pr-workflow`
+- Skill creation: `skill-creator`
+- Next.js best practices: `next-best-practices`
+- React performance best practices: `vercel-react-best-practices`
+- React Native best practices: `vercel-react-native-skills`
+
+Detailed instructions live in `.agents/skills/*/SKILL.md` and each skill's `references/` directory.
 
 ---
 
-# 3. Technology Stack
+# 3. Technology Baseline
 
 Backend:
 
@@ -58,9 +55,9 @@ Frontend:
 - TypeScript
 - App Router by default for new frontend work
 
-Architecture Style:
+Architecture:
 
-- Pragmatic Domain-Driven Design
+- Pragmatic Domain-Driven Design where behavior and invariants justify it
 - Layered architecture
 - Clean Architecture where complexity justifies it
 - Modular monolith by default before microservices
@@ -72,13 +69,13 @@ Architecture Style:
 
 Expected structure:
 
+```text
 /src
   /backend
     /Api
     /Application
     /Domain
     /Infrastructure
-
   /frontend
 
 /tests
@@ -88,6 +85,7 @@ Expected structure:
 /docs
   /agents
   /workflows
+```
 
 ---
 
@@ -96,6 +94,7 @@ Expected structure:
 All agents must:
 
 - read this file before starting work
+- use the relevant skill for the requested role/task
 - work only on the requested task scope
 - follow structured outputs
 - avoid unnecessary complexity
@@ -107,291 +106,122 @@ All agents must:
 
 ---
 
-# 6. Orchestrator Agent
+# 6. Mandatory Developer Branch Rule
 
-The Orchestrator Agent is responsible for planning, delegation, task refinement, and final workflow governance.
+Developer agents must create a feature branch before editing implementation files.
 
-The Orchestrator Agent must:
+Branch format:
 
-- follow `/docs/agents/orchestrator-agent.md`
-- follow `/docs/workflows/trello-agent-workflow.md` when Trello is used
-- follow `/docs/workflows/github-pr-workflow.md` when GitHub PR workflow is used
-- clarify requirements before implementation
-- break large work into small tasks
-- create backlog tasks when needed
-- produce developer handoffs
-- validate reviewer feedback
-- decide whether work should continue, be blocked, or be marked done
-- keep the human supervisor informed
+```text
+feature/task-{number}-{kebab-case-name}
+```
 
-The Orchestrator Agent must NOT:
+Rules:
 
-- write production code
-- silently invoke implementation work when manual approval is expected
-- move work to Done without reviewer validation
-
-The Orchestrator Agent is the only agent allowed to:
-
-- create Trello backlog cards
-- prioritize backlog tasks
-- move Ready To Release tasks to Done
+- `{number}` is the numeric suffix from the task ID, for example `FEATURE-006` becomes `006`.
+- `{name}` is a short kebab-case task description.
+- Example: `feature/task-006-notes-search-endpoint`.
+- Code Reviewer must treat non-conforming developer feature branches as BLOCKER findings unless the Orchestrator explicitly approved an exception.
 
 ---
 
-# 7. Developer Agent
+# 7. Role Map
 
-The Developer Agent is responsible for implementation.
+## Orchestrator Agent
 
-The Developer Agent must:
+Uses: `orchestrator-governance`, `trello-workflow-governance`, `github-pr-workflow` when relevant.
 
-- follow the layered architecture strictly
-- implement only the approved task
-- avoid overengineering
-- create readable and maintainable code
-- add or update tests when relevant
-- update README when setup or usage changes
-- report files changed, decisions, commands run, and remaining issues
-- follow `/docs/workflows/developer-validation-workflow.md`
+Owns planning, task refinement, backlog governance, developer handoffs, reviewer feedback governance, and final Ready To Release -> Done closure.
 
-The Developer Agent must NOT:
+Must not write production code or bypass reviewer validation.
 
-- create Trello cards
-- close tasks
-- modify unrelated files
-- introduce unnecessary abstractions
-- upgrade the technology stack without approval
-- change the approved runtime, framework, package manager, or persistence baseline without approval
+## Developer Agent
 
----
+Uses: `developer-task-execution`, plus `backend-typescript-architecture` or `frontend-next-architecture` when relevant.
 
-# 8. Backend Developer Agent
+Owns scoped implementation, tests, validation, branch/PR creation, and implementation reporting.
 
-The Backend Developer Agent is a specialized Developer Agent for backend implementation tasks.
+Must not create Trello cards, close tasks, change unrelated files, or move work to Functional Review or Done.
 
-It coexists with the generic Developer Agent and is used when the task is backend-specific or explicitly assigned.
+## Backend Developer Agent
 
-The Backend Developer Agent focuses on:
+Specialized Developer Agent for TypeScript/Node.js backend tasks.
 
-- TypeScript backend systems
-- Node.js runtime behavior
-- API design
-- persistence and database modeling
-- transaction boundaries
-- pragmatic Domain-Driven Design
-- layered architecture and Clean Architecture where justified
-- backend testing
-- maintainability, scalability, performance, security, and observability
+Uses: `developer-task-execution`, `backend-typescript-architecture`.
 
-The Backend Developer Agent must:
+## Frontend Developer Agent
 
-- follow all Developer Agent rules
-- follow `/docs/workflows/developer-validation-workflow.md`
-- follow `/docs/agents/backend-developer-agent.md`
-- keep API, application, domain, and infrastructure responsibilities separate
-- prefer a modular monolith unless distribution is justified by team, domain, scaling, or deployment needs
-- validate input at system boundaries
-- keep business rules close to domain behavior when the domain is behavior-rich
-- keep CRUD use cases simple when DDD ceremony is not justified
-- define explicit persistence and transaction boundaries
-- avoid blocking the Node.js event loop with synchronous or CPU-heavy request-path work
-- add or update backend tests when behavior changes
-- report validation evidence using exact commands and results
+Specialized Developer Agent for Next.js/React/TypeScript frontend tasks.
 
-The Backend Developer Agent must NOT:
+Uses: `developer-task-execution`, `frontend-next-architecture`, `next-best-practices`, `vercel-react-best-practices`.
 
-- introduce microservices, event sourcing, CQRS, GraphQL, or complex DDD patterns without concrete need or approval
-- leak HTTP, framework, ORM, or persistence concerns into the Domain layer
-- hide business rules in controllers, route handlers, or persistence adapters
-- share database schemas across independently deployed services when a distributed architecture is chosen
-- optimize by guessing instead of measuring
-- add infrastructure complexity to compensate for unclear code or data modeling
+## Code Reviewer Agent
+
+Uses: `code-review-pr`, `github-pr-workflow`, `trello-workflow-governance` when relevant.
+
+Owns technical PR validation, PR review decision, architecture/scope/test review, and Code Review -> Functional Review or Blocked transitions.
+
+Must not implement fixes, perform functional acceptance, merge PRs, or move tasks to Done.
+
+## Functional Reviewer Agent
+
+Uses: `functional-review`, `trello-workflow-governance` when relevant.
+
+Owns acceptance criteria validation, runtime behavior validation, operational validation, and Functional Review -> Ready To Release or Blocked transitions.
+
+Must not modify code, perform technical PR review by default, merge PRs, or move tasks to Done.
 
 ---
 
-# 9. Frontend Developer Agent
+# 8. Architecture Boundaries
 
-The Frontend Developer Agent is a specialized Developer Agent for frontend implementation tasks.
+Backend dependency direction:
 
-It coexists with the generic Developer Agent and is used when the task is frontend-specific or explicitly assigned.
+```text
+API -> Application / Infrastructure
+Infrastructure -> Application / Domain
+Application -> Domain
+Domain -> none
+```
 
-The Frontend Developer Agent focuses on:
+Backend layer responsibilities:
 
-- Next.js App Router applications
-- React and React Server Components
-- TypeScript frontend systems
-- Feature-Sliced Design where project complexity justifies it
-- component design and composition
-- routing, rendering, data fetching, caching, and revalidation
-- forms, validation, API integration, authentication, and authorization
-- accessibility, performance, SEO, security, and internationalization
-- frontend testing and maintainability
+- API: HTTP endpoints, request validation, response mapping, delegation
+- Application: use cases, orchestration, transaction coordination
+- Domain: entities, value objects, invariants, domain behavior
+- Infrastructure: persistence, external integrations, technical adapters
 
-The Frontend Developer Agent must:
+Frontend boundaries:
 
-- follow all Developer Agent rules
-- follow `/docs/workflows/developer-validation-workflow.md`
-- follow `/docs/agents/frontend-developer-agent.md`
-- default to Server Components unless interactivity or browser APIs require Client Components
-- push `use client` boundaries to the smallest leaf component possible
-- validate external data and form input at runtime
-- keep route files thin and delegate business UI composition to frontend architecture layers
-- preserve accessibility, keyboard navigation, semantic HTML, and focus behavior
-- optimize for Core Web Vitals using measurement rather than guesses
-- add or update frontend tests when behavior changes
-
-The Frontend Developer Agent must NOT:
-
-- turn App Router code into an accidental client-side SPA
-- store server data in client-only global stores without justification
-- bypass Feature-Sliced Design or module public APIs when the project uses FSD
-- expose secrets or privileged server data to Client Components
-- introduce global state, GraphQL, Redux, complex design-system abstractions, or custom architecture without concrete need
-- sacrifice accessibility or security for visual implementation speed
+- App Router route files should stay thin.
+- Server Components are default for data fetching, structure, and SEO.
+- Client Components are for interactivity, browser APIs, effects, refs, and client state.
+- Feature-Sliced Design dependency rules apply when the project uses FSD.
 
 ---
 
-# 10. Code Reviewer Agent
+# 9. Repository Hygiene
 
-The Code Reviewer Agent is responsible for technical pull request validation, GitHub PR review decisions, and targeted smoke checks that support the technical review decision.
-
-The Code Reviewer Agent must:
-
-- follow `/docs/agents/code-reviewer-agent.md`
-- follow `/docs/workflows/code-reviewer-workflow.md`
-- read the Trello task before reviewing
-- read the GitHub PR linked from the Trello task
-- review only the PR diff
-- validate scope, code quality, architecture boundaries, and PR hygiene
-- run targeted smoke checks when relevant and feasible
-- create a GitHub PR review with findings and an approve/request changes decision
-- add findings as GitHub and Trello comments
-- move Code Review → Functional Review only if PASS
-- move Code Review → Blocked if FAIL
-
-The Code Reviewer Agent must NOT:
-
-- implement fixes
-- perform final functional acceptance review
-- move tasks to Done
-- merge PRs without explicit human approval
+- `.gitignore` is mandatory.
+- Generated artifacts must remain excluded.
+- `node_modules/`, `dist/`, `build/`, `coverage/`, `.next/`, and `*.tsbuildinfo` must not be committed.
+- README must include setup and validation steps when setup or usage changes.
 
 ---
 
-# 11. Functional Reviewer Agent
+# 10. Severity Levels
 
-The Functional Reviewer Agent is responsible for validating task acceptance, runtime behavior, and functional readiness after code review has passed.
-
-The Functional Reviewer Agent must:
-
-- follow `/docs/agents/functional-reviewer-agent.md`
-- follow `/docs/workflows/reviewer-workflow.md`
-- inspect repository structure
-- validate architecture boundaries
-- check dependency direction between projects
-- verify README setup instructions
-- run validation commands when possible
-- distinguish blockers, medium risks, and low-priority improvements
-
-The Functional Reviewer Agent must NOT:
-
-- modify production code
-- refactor code
-- fix issues directly
-- approve work without evidence
-- move Functional Review tasks to Done
-
----
-
-# 12. Architecture Rules
-
-## API Layer
-
-Responsibilities:
-
-- expose HTTP endpoints
-- validate requests
-- map request/response models
-- delegate work to Application layer
-
-Must NOT:
-
-- contain business rules
-- access persistence directly
-- contain domain logic
-
-## Application Layer
-
-Responsibilities:
-
-- implement use cases
-- orchestrate domain operations
-- coordinate repositories/services
-
-Must NOT:
-
-- contain infrastructure implementation details
-- contain HTTP concerns
-
-## Domain Layer
-
-Responsibilities:
-
-- entities
-- value objects
-- domain rules
-- domain behavior
-
-Must:
-
-- remain framework-independent
-
-Must NOT:
-
-- depend on Infrastructure
-- depend on HTTP framework or runtime concerns
-- depend on persistence concerns
-
-## Infrastructure Layer
-
-Responsibilities:
-
-- repository implementations
-- persistence
-- external integrations
-
-Must:
-
-- implement interfaces defined outside Infrastructure
-
----
-
-# 13. Repository Hygiene Rules
-
-- .gitignore is mandatory
-- bin/ and obj/ must never be committed
-- generated artifacts must remain excluded
-- README must include setup and validation steps
-- generated artifacts may reappear after build/test execution
-- generated artifacts are acceptable only if ignored and not staged
-
----
-
-# 14. Severity Levels
-
-## BLOCKER
-
-Use for:
+BLOCKER:
 
 - architecture violation
 - broken dependency direction
 - failing build/tests
 - missing critical validation
 - wrong technology baseline
-- unapproved framework/runtime upgrade
+- unapproved framework/runtime/package manager/persistence change
+- developer branch violates required naming pattern without approved exception
 
-## MEDIUM
-
-Use for:
+MEDIUM:
 
 - maintainability issue
 - weak validation behavior
@@ -399,145 +229,27 @@ Use for:
 - inconsistent project configuration
 - missing operational verification
 
-## LOW
-
-Use for:
+LOW:
 
 - structure inconsistency
-- naming improvements
-- documentation gaps
-- minor repository hygiene issues
+- naming improvement
+- documentation gap
+- minor repository hygiene issue
 
 ---
 
-# 15. Structured Outputs
+# 11. Structured Outputs
 
-## Orchestrator Output
+Use the output format defined by the active skill:
 
-Use this format:
-
-## Understanding
-...
-
-## Questions
-...
-
-## Plan
-...
-
-## Backlog Tasks
-...
-
-## Developer Handoff
-...
+- Orchestrator: `orchestrator-governance`
+- Developer: `developer-task-execution`
+- Code Reviewer: `code-review-pr`
+- Functional Reviewer: `functional-review`
 
 ---
 
-## Developer Output
-
-Use this format:
-
-## Implementation Summary
-...
-
-## Files Changed
-...
-
-## Decisions
-...
-
-## Commands Run
-...
-
-## Remaining Issues
-...
-
----
-
-## Code Reviewer Output
-
-Use this format:
-
-## Code Review Status
-PASS / FAIL
-
-## PR Review
-- Task ID:
-- Branch:
-- PR:
-- GitHub Review:
-- Scope:
-- Validation Evidence:
-- Smoke Checks:
-
-## Architecture Review
-- API Layer:
-- Application Layer:
-- Domain Layer:
-- Infrastructure Layer:
-- Dependency Direction:
-
-## Code Quality Review
-- Maintainability:
-- Simplicity:
-- Naming:
-- Test Quality:
-- Scope Control:
-
-## Findings
-| Severity | Area | Finding | Recommendation |
-|---|---|---|---|
-
-## Risks
-- ...
-
-## Trello Action
-- Previous Status:
-- New Status:
-- Comment Added:
-
-## Final Recommendation
-...
-
----
-
-## Functional Reviewer Output
-
-Use this format:
-
-## Review Status
-PASS / FAIL
-
-## Architecture Review
-- API Layer:
-- Application Layer:
-- Domain Layer:
-- Infrastructure Layer:
-- Dependency Direction:
-
-## Operational Validation
-- Dependencies:
-- Typecheck:
-- Lint:
-- Build:
-- Tests:
-
-## Files Reviewed
-- ...
-
-## Findings
-| Severity | Area | Finding | Recommendation |
-|---|---|---|---|
-
-## Risks
-- ...
-
-## Final Recommendation
-...
-
----
-
-# 16. Definition of Done
+# 12. Definition of Done
 
 A task is considered done only if:
 
@@ -545,30 +257,9 @@ A task is considered done only if:
 - architecture rules are respected
 - dependencies restore successfully
 - project builds successfully
-- tests pass
+- tests pass or limitations are documented and accepted
 - code reviewer validation passes when GitHub PR workflow is used
 - functional reviewer validation passes
-- outputs follow required formats
-- no blocker findings remain
+- no BLOCKER findings remain
 - environment limitations are clearly documented
 - Trello status is correct when Trello is used
-
----
-
-# 17. Simplicity Rule
-
-Prefer:
-
-- simple code
-- simple architecture
-- clear responsibilities
-- explicit validation
-- small tasks
-
-Avoid:
-
-- premature abstractions
-- unnecessary patterns
-- speculative complexity
-- scope creep
-- hidden assumptions

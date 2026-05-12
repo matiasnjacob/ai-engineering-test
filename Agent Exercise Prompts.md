@@ -40,7 +40,7 @@ Your responsibilities:
 - create or refine Trello tasks
 - wait for human approval before writing to Trello when creating new backlog items
 - generate Developer handoffs by Task ID
-- evaluate Reviewer findings
+- evaluate Code Reviewer and Functional Reviewer findings
 - create remediation tasks when needed
 - move Ready To Release → Done only after Functional Reviewer PASS
 Use structured output.
@@ -58,10 +58,11 @@ Use Trello MCP:
 1. Read the requested task card.
 2. Confirm it is in Ready.
 3. Move Ready → In Progress.
-4. Implement only the card scope.
-5. Run required validation commands when relevant.
-6. Add an implementation comment to the Trello card.
-7. Move In Progress → Code Review when finished.
+4. Create `feature/task-{number}-{kebab-case-name}` before editing implementation files.
+5. Implement only the card scope.
+6. Run required validation commands when relevant.
+7. Add an implementation comment to the Trello card.
+8. Move In Progress → Code Review when finished.
 Do not address unrelated tasks.
 Do not create Trello cards.
 Do not move tasks to Done.
@@ -83,7 +84,7 @@ Use Trello MCP and GitHub CLI:
 2. Confirm it is in Code Review.
 3. Confirm the card links a GitHub PR.
 4. Review only the linked PR diff and directly relevant surrounding code.
-5. Confirm PR title, branch, scope, and validation evidence.
+5. Confirm PR title, branch pattern, scope, and validation evidence.
 6. Run validation commands and targeted smoke checks when relevant and feasible.
 7. Create a GitHub PR review with approve or request-changes.
 8. Add review findings as a Trello comment.
@@ -198,10 +199,11 @@ Use Trello MCP:
 1. Read <TASK-ID>.
 2. Confirm it is in Ready.
 3. Move <TASK-ID> to In Progress.
-4. Implement only the card scope.
-5. Run relevant validation commands.
-6. Add implementation notes as a Trello comment.
-7. Move <TASK-ID> to Code Review.
+4. Create `feature/task-{number}-{kebab-case-name}` before editing implementation files.
+5. Implement only the card scope.
+6. Run relevant validation commands.
+7. Add implementation notes as a Trello comment.
+8. Move <TASK-ID> to Code Review.
 Return using the Developer Output format.
 
 ## Functional Reviewer Review Task By ID
@@ -238,7 +240,7 @@ Use Trello MCP and GitHub CLI:
 2. Confirm it is in Code Review.
 3. Confirm the card links a GitHub PR.
 4. Review only the linked PR diff and directly relevant surrounding code.
-5. Validate PR title, branch, scope, architecture boundaries, tests, and validation evidence.
+5. Validate PR title, branch pattern, scope, architecture boundaries, tests, and validation evidence.
 6. Run validation commands and targeted smoke checks when relevant and feasible.
 7. Create a GitHub PR review with approve or request-changes.
 8. Add a Trello comment with findings, commands run, and decision.
