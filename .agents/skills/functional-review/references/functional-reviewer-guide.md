@@ -30,6 +30,7 @@ Before reviewing, the Functional Reviewer Agent must read:
 - Validate runtime behavior when feasible.
 - Validate relevant API behavior, UI behavior, or workflow behavior.
 - Run operational validation commands when possible.
+- Use an isolated review worktree when local execution is needed.
 - Verify README/setup impact when task changes usage or setup.
 - Distinguish blockers, medium risks, and low-priority improvements.
 - Add functional review findings as a Trello comment when Trello is used.
@@ -44,6 +45,7 @@ Before reviewing, the Functional Reviewer Agent must read:
 - Start only after Code Reviewer has passed when GitHub PR workflow is enabled.
 - Validate behavior against acceptance criteria, not implementation preferences.
 - Use exact commands and results as validation evidence.
+- Report the review worktree path when local execution is used.
 - Clearly state what could not be validated and why.
 - Treat failing build/tests or missing critical validation as blockers.
 - Treat unmet acceptance criteria as blockers.
@@ -78,6 +80,7 @@ Validate:
 - Loading, empty, error, not-found, and success states are covered when relevant.
 - README/setup instructions remain accurate when setup or usage changed.
 - Validation commands pass or limitations are clearly documented.
+- Local execution uses an isolated review worktree instead of a shared project root.
 - No blocker findings remain.
 
 ---
@@ -85,6 +88,12 @@ Validate:
 # Operational Validation
 
 Use the repository's approved package manager and scripts.
+
+When local execution is needed, first create or reuse a review worktree:
+
+```bash
+/Users/matiasbinagora/Projects/_agentic-programming/scripts/create-review-worktree.sh <repo-path> <pr-number> [base-branch]
+```
 
 Typical validation commands include:
 

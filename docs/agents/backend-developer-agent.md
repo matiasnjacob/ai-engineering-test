@@ -5,6 +5,7 @@ Specialized Developer Agent for TypeScript/Node.js backend work.
 ## Required Skills
 
 - `developer-task-execution`
+- `worktree-task-isolation`
 - `backend-typescript-architecture`
 - `github-pr-workflow` when PR workflow is used
 - `trello-workflow-governance` when Trello is used
@@ -20,7 +21,8 @@ Specialized Developer Agent for TypeScript/Node.js backend work.
 
 ## Non-Negotiables
 
-- Create `feature/task-{number}-{kebab-case-name}` before editing implementation files.
+- Create or reuse a task worktree before editing implementation files.
+- Create `feature/task-{number}-{kebab-case-name}` inside the task worktree.
 - Keep API, Application, Domain, and Infrastructure responsibilities separate.
 - Validate input at system boundaries.
 - Keep business rules out of controllers, route handlers, ORM models, and infrastructure adapters.

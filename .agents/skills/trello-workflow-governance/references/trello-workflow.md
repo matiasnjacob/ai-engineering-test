@@ -181,10 +181,11 @@ Before implementing a Trello task, the Developer Agent must:
 2. Confirm the card is in Ready.
 3. Move the card to In Progress.
 4. Add a comment explaining the transition.
-5. Implement only the task scope.
-6. Add the PR URL to the Trello card when GitHub PR workflow is enabled.
-7. Move the card to Code Review when finished.
-8. Add a final implementation comment.
+5. Create or reuse the task worktree before editing implementation files.
+6. Implement only the task scope inside the task worktree.
+7. Add the PR URL and worktree path to the Trello card when GitHub PR workflow is enabled.
+8. Move the card to Code Review when finished.
+9. Add a final implementation comment.
 
 If the card is not in Ready, the Developer Agent must stop.
 
@@ -200,11 +201,12 @@ Before reviewing a Trello task, the Code Reviewer Agent must:
 4. Read the linked GitHub PR.
 5. Confirm the PR title and branch include the task ID.
 6. Review only the PR diff and directly relevant surrounding code.
-7. Run validation commands and targeted smoke checks when relevant and feasible.
-8. Create a GitHub PR review with an approve or request-changes decision.
-9. Add a Trello comment with the decision, findings, commands run, and remaining issues.
-10. If validation fails, move Code Review → Blocked.
-11. If validation passes, move Code Review → Functional Review.
+7. Use a dedicated review worktree if local checkout or smoke checks are needed.
+8. Run validation commands and targeted smoke checks when relevant and feasible.
+9. Create a GitHub PR review with an approve or request-changes decision.
+10. Add a Trello comment with the decision, findings, commands run, worktree path when used, and remaining issues.
+11. If validation fails, move Code Review → Blocked.
+12. If validation passes, move Code Review → Functional Review.
 
 The Code Reviewer Agent must not perform final functional acceptance review.
 
@@ -217,11 +219,12 @@ Before reviewing a Trello task, the Functional Reviewer Agent must:
 1. Read the requested card by task ID.
 2. Confirm the card is in Functional Review.
 3. Confirm Code Reviewer has passed the PR.
-4. Review only that task scope.
-5. Validate acceptance criteria and runtime behavior when feasible.
-6. Add a review comment.
-7. If validation fails, move Functional Review → Blocked.
-8. If validation passes, move Functional Review → Ready To Release for Orchestrator approval.
+4. Use an isolated review worktree if local execution is needed.
+5. Review only that task scope.
+6. Validate acceptance criteria and runtime behavior when feasible.
+7. Add a review comment with worktree path when used.
+8. If validation fails, move Functional Review → Blocked.
+9. If validation passes, move Functional Review → Ready To Release for Orchestrator approval.
 
 ---
 

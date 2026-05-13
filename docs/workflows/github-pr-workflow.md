@@ -2,13 +2,14 @@
 
 Lightweight index for branch, commit, pull request, and PR gate rules.
 
-## Required Skill
+## Required Skills
 
 - `github-pr-workflow`
+- `worktree-task-isolation`
 
 ## Mandatory Developer Branch Rule
 
-Developer agents must create a feature branch before editing implementation files.
+Developer agents must create or reuse a task worktree and feature branch before editing implementation files.
 
 Branch format:
 
@@ -22,6 +23,13 @@ Rules:
 - `{name}` is a short kebab-case task description.
 - Example: `feature/task-006-notes-search-endpoint`.
 - Non-conforming developer feature branches are BLOCKER code review findings unless the Orchestrator explicitly approved an exception.
+
+## Worktree Requirements
+
+- Use one task worktree per implementation task by default.
+- Worktrees are mandatory when more than one active task exists for the same repository.
+- Work only inside the task worktree after it is created.
+- Report the worktree path in implementation and PR evidence.
 
 ## PR Requirements
 

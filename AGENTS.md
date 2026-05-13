@@ -27,6 +27,7 @@ Agents must use the relevant skill before doing specialized work:
 - Frontend implementation: `frontend-next-architecture`
 - Code review: `code-review-pr`
 - Functional review: `functional-review`
+- Worktree/task isolation: `worktree-task-isolation`
 - Trello governance: `trello-workflow-governance`
 - GitHub PR workflow: `github-pr-workflow`
 - Skill creation: `skill-creator`
@@ -108,7 +109,7 @@ All agents must:
 
 # 6. Mandatory Developer Branch Rule
 
-Developer agents must create a feature branch before editing implementation files.
+Developer agents must create a task worktree and feature branch before editing implementation files.
 
 Branch format:
 
@@ -125,11 +126,30 @@ Rules:
 
 ---
 
-# 7. Role Map
+# 7. Mandatory Worktree Rule
+
+Agents must use Git worktrees to isolate task work.
+
+Default rule:
+
+- Use one task worktree per implementation task.
+- Worktrees are mandatory when more than one active task exists for the same repository.
+- Developer worktrees live under `/Users/matiasbinagora/Projects/.worktrees/<repo>/task-{number}-{kebab-case-name}`.
+- Review worktrees live under `/Users/matiasbinagora/Projects/.worktrees/<repo>/review-pr-{number}`.
+- Do not edit implementation files in the original project root once a task worktree exists.
+- Report worktree path and branch in implementation, code review, and functional review outputs when local checkout is used.
+- Remove worktrees only after the task is Done or cleanup is explicitly requested.
+- Do not delete branches unless explicitly requested.
+
+Use the `worktree-task-isolation` skill and scripts in `/Users/matiasbinagora/Projects/_agentic-programming/scripts/` for lifecycle commands.
+
+---
+
+# 8. Role Map
 
 ## Orchestrator Agent
 
-Uses: `orchestrator-governance`, `trello-workflow-governance`, `github-pr-workflow` when relevant.
+Uses: `orchestrator-governance`, `worktree-task-isolation`, `trello-workflow-governance`, `github-pr-workflow` when relevant.
 
 Owns planning, task refinement, backlog governance, developer handoffs, reviewer feedback governance, and final Ready To Release -> Done closure.
 
@@ -137,7 +157,7 @@ Must not write production code or bypass reviewer validation.
 
 ## Developer Agent
 
-Uses: `developer-task-execution`, plus `backend-typescript-architecture` or `frontend-next-architecture` when relevant.
+Uses: `developer-task-execution`, `worktree-task-isolation`, plus `backend-typescript-architecture` or `frontend-next-architecture` when relevant.
 
 Owns scoped implementation, tests, validation, branch/PR creation, and implementation reporting.
 
@@ -147,17 +167,17 @@ Must not create Trello cards, close tasks, change unrelated files, or move work 
 
 Specialized Developer Agent for TypeScript/Node.js backend tasks.
 
-Uses: `developer-task-execution`, `backend-typescript-architecture`.
+Uses: `developer-task-execution`, `worktree-task-isolation`, `backend-typescript-architecture`.
 
 ## Frontend Developer Agent
 
 Specialized Developer Agent for Next.js/React/TypeScript frontend tasks.
 
-Uses: `developer-task-execution`, `frontend-next-architecture`, `next-best-practices`, `vercel-react-best-practices`.
+Uses: `developer-task-execution`, `worktree-task-isolation`, `frontend-next-architecture`, `next-best-practices`, `vercel-react-best-practices`.
 
 ## Code Reviewer Agent
 
-Uses: `code-review-pr`, `github-pr-workflow`, `trello-workflow-governance` when relevant.
+Uses: `code-review-pr`, `worktree-task-isolation`, `github-pr-workflow`, `trello-workflow-governance` when relevant.
 
 Owns technical PR validation, PR review decision, architecture/scope/test review, and Code Review -> Functional Review or Blocked transitions.
 
@@ -165,7 +185,7 @@ Must not implement fixes, perform functional acceptance, merge PRs, or move task
 
 ## Functional Reviewer Agent
 
-Uses: `functional-review`, `trello-workflow-governance` when relevant.
+Uses: `functional-review`, `worktree-task-isolation`, `trello-workflow-governance` when relevant.
 
 Owns acceptance criteria validation, runtime behavior validation, operational validation, and Functional Review -> Ready To Release or Blocked transitions.
 
@@ -173,7 +193,7 @@ Must not modify code, perform technical PR review by default, merge PRs, or move
 
 ---
 
-# 8. Architecture Boundaries
+# 9. Architecture Boundaries
 
 Backend dependency direction:
 
@@ -200,7 +220,7 @@ Frontend boundaries:
 
 ---
 
-# 9. Repository Hygiene
+# 10. Repository Hygiene
 
 - `.gitignore` is mandatory.
 - Generated artifacts must remain excluded.
@@ -209,7 +229,7 @@ Frontend boundaries:
 
 ---
 
-# 10. Severity Levels
+# 11. Severity Levels
 
 BLOCKER:
 
@@ -220,6 +240,7 @@ BLOCKER:
 - wrong technology baseline
 - unapproved framework/runtime/package manager/persistence change
 - developer branch violates required naming pattern without approved exception
+- required task worktree isolation is bypassed without approved exception
 
 MEDIUM:
 
@@ -238,7 +259,7 @@ LOW:
 
 ---
 
-# 11. Structured Outputs
+# 12. Structured Outputs
 
 Use the output format defined by the active skill:
 
@@ -249,7 +270,7 @@ Use the output format defined by the active skill:
 
 ---
 
-# 12. Definition of Done
+# 13. Definition of Done
 
 A task is considered done only if:
 
@@ -260,6 +281,7 @@ A task is considered done only if:
 - tests pass or limitations are documented and accepted
 - code reviewer validation passes when GitHub PR workflow is used
 - functional reviewer validation passes
+- worktree path and branch were reported when a local worktree was used
 - no BLOCKER findings remain
 - environment limitations are clearly documented
 - Trello status is correct when Trello is used

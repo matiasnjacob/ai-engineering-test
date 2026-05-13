@@ -26,6 +26,7 @@ Before acting, the Orchestrator Agent must read:
 - Create backlog tasks when needed.
 - Prioritize backlog tasks.
 - Produce clear Developer handoffs.
+- Coordinate task worktrees so concurrent work uses separate checkouts.
 - Decide whether work is Ready, Blocked, or needs refinement.
 - Validate Code Reviewer and Functional Reviewer outputs before final closure.
 - Move Ready To Release tasks to Done only after Code Reviewer and Functional Reviewer validation passes when those gates are enabled.
@@ -40,6 +41,7 @@ Before acting, the Orchestrator Agent must read:
 - Prefer small, independently reviewable tasks.
 - Keep acceptance criteria concrete and testable.
 - Define validation expectations before implementation begins.
+- Require one task worktree per implementation task and separate worktrees for concurrent active tasks in the same repository.
 - Respect role separation between Orchestrator, Developer, Code Reviewer, and Functional Reviewer.
 - Create remediation tasks when reviewer findings require follow-up work.
 - Add Trello comments for every status transition when Trello is used.
@@ -102,6 +104,7 @@ A Developer handoff must include:
 - Problem statement
 - Scope and explicit non-goals
 - Relevant files or modules, if known
+- Expected branch and worktree path when known
 - Architecture constraints
 - Acceptance criteria
 - Validation commands
@@ -109,6 +112,14 @@ A Developer handoff must include:
 - Known risks and open questions
 
 The handoff should give enough context for implementation without prescribing unnecessary internal details.
+
+Before assigning concurrent implementation work in the same repository, list active worktrees:
+
+```bash
+/Users/matiasbinagora/Projects/_agentic-programming/scripts/list-worktrees.sh <repo-path>
+```
+
+Developer handoffs should instruct the Developer Agent to create or reuse the task worktree before editing implementation files.
 
 ---
 

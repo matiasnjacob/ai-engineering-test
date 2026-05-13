@@ -2,9 +2,10 @@
 
 Lightweight index for Trello status governance.
 
-## Required Skill
+## Required Skills
 
 - `trello-workflow-governance`
+- `worktree-task-isolation` when implementation or local validation is involved
 
 ## Lists
 
@@ -29,5 +30,7 @@ Blocked may be used when validation fails or human decision is required.
 | Orchestrator | Any | Blocked |
 
 Every transition must include a Trello comment with agent name, task ID, previous status, new status, reason, validation evidence when applicable, and remaining issues.
+
+Implementation and local validation comments must include the worktree path when a worktree is used.
 
 Full workflow details live in `.agents/skills/trello-workflow-governance/references/trello-workflow.md`.

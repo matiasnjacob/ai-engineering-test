@@ -5,6 +5,7 @@ Lightweight index for functional acceptance and runtime validation.
 ## Required Skills
 
 - `functional-review`
+- `worktree-task-isolation` when local execution is needed
 - `trello-workflow-governance` when Trello is used
 - `github-pr-workflow` when PR workflow is used
 
@@ -14,6 +15,7 @@ Functional Reviewer validates:
 
 - acceptance criteria
 - runtime behavior when feasible
+- isolated review worktree when local execution is needed
 - operational validation evidence
 - setup/README impact
 - remaining risks

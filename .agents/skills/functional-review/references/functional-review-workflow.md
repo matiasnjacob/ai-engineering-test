@@ -42,13 +42,22 @@ When GitHub PR workflow is enabled, the Functional Reviewer Agent must:
 1. Read the requested Trello task.
 2. Confirm the task is in Functional Review.
 3. Confirm Code Reviewer has passed the PR.
-4. Validate acceptance criteria.
-5. Validate runtime behavior when possible.
-6. Add functional review findings as a Trello comment.
-7. Move Functional Review → Ready To Release if PASS.
-8. Move Functional Review → Blocked if FAIL.
+4. Create or reuse an isolated review worktree when local execution is needed.
+5. Validate acceptance criteria.
+6. Validate runtime behavior when possible.
+7. Add functional review findings as a Trello comment.
+8. Move Functional Review → Ready To Release if PASS.
+9. Move Functional Review → Blocked if FAIL.
 
 The Functional Reviewer Agent must not perform code review unless explicitly requested.
+
+When local execution is needed, use:
+
+```bash
+/Users/matiasbinagora/Projects/_agentic-programming/scripts/create-review-worktree.sh <repo-path> <pr-number> [base-branch]
+```
+
+Do not reuse the Developer Agent's dirty worktree unless explicitly approved.
 
 ---
 
@@ -136,6 +145,7 @@ PASS / FAIL
 
 ## Operational Validation
 
+- Worktree:
 - Dependencies:
 - Typecheck:
 - Lint:

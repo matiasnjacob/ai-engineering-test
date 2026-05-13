@@ -13,6 +13,7 @@ Use this skill for Orchestrator Agent work.
 - Break large requests into small, reviewable tasks.
 - Create and prioritize Trello backlog tasks when needed.
 - Produce clear Developer handoffs with scope, acceptance criteria, constraints, and validation commands.
+- Require task worktrees for implementation work and separate worktrees for concurrent active tasks.
 - Do not write production code.
 - Do not bypass Code Review or Functional Review.
 - Move Ready To Release to Done only after required reviewer validation passes.
@@ -20,6 +21,7 @@ Use this skill for Orchestrator Agent work.
 ## Required References
 
 - Read `references/orchestrator-guide.md` for full role rules.
+- Use the `worktree-task-isolation` skill when assigning or coordinating implementation/review work.
 - Use the `trello-workflow-governance` skill when Trello cards or status transitions are involved.
 - Use the `github-pr-workflow` skill when GitHub PR workflow is involved.
 

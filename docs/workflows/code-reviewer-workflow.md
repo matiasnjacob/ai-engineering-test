@@ -5,6 +5,7 @@ Lightweight index for technical pull request review.
 ## Required Skills
 
 - `code-review-pr`
+- `worktree-task-isolation`
 - `github-pr-workflow`
 - `trello-workflow-governance` when Trello is used
 
@@ -19,6 +20,7 @@ Code Reviewer validates:
 - code quality
 - test quality
 - validation evidence
+- worktree isolation when local checkout or smoke checks are needed
 - PR hygiene
 
 Non-conforming developer branch names are BLOCKER findings unless the Orchestrator approved an exception.

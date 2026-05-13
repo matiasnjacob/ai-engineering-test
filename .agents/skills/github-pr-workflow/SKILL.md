@@ -9,7 +9,8 @@ Use this skill whenever GitHub PR workflow is enabled.
 
 ## Core Rules
 
-- Developer agents must create a feature branch before editing implementation files.
+- Developer agents must create or reuse a task worktree before editing implementation files.
+- Developer agents must create the feature branch inside the task worktree.
 - Branch format is `feature/task-{number}-{kebab-case-name}`.
 - Derive `{number}` from the numeric suffix of the task ID, for example `FEATURE-006` becomes `006`.
 - Example: `feature/task-006-notes-search-endpoint`.
@@ -19,7 +20,9 @@ Use this skill whenever GitHub PR workflow is enabled.
 - Do not mix unrelated task work in one PR.
 - Do not push directly to main.
 - Do not create a PR without validation evidence.
+- Do not implement task changes in the original project root once a task worktree exists.
 
 ## Required References
 
 - Read `references/github-pr-workflow.md` for full branch, commit, PR, and gate rules.
+- Use `worktree-task-isolation` for isolated task and review checkouts.

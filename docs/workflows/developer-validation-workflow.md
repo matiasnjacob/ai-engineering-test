@@ -5,13 +5,16 @@ Lightweight index for Developer Agent execution and validation.
 ## Required Skill
 
 - `developer-task-execution`
+- `worktree-task-isolation`
 
 ## Required Rules
 
 - Read `AGENTS.md` and the requested task before implementation.
-- Create `feature/task-{number}-{kebab-case-name}` before editing implementation files.
+- Create or reuse a task worktree before editing implementation files.
+- Create `feature/task-{number}-{kebab-case-name}` inside the task worktree.
 - Implement only the approved task scope.
 - Run relevant validation commands and report exact results.
+- Report the worktree path and branch.
 - Do not move work to Functional Review or Done.
 
 ## Typical Validation Commands

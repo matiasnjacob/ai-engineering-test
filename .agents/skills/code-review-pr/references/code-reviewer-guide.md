@@ -31,6 +31,7 @@ Before reviewing, the Code Reviewer Agent must read:
 - Validate code quality, maintainability, simplicity, and naming.
 - Validate test quality and relevance.
 - Validate build/test/validation evidence.
+- Use a dedicated review worktree for local checkout, validation commands, or smoke checks.
 - Run targeted smoke checks when they materially improve technical confidence.
 - Submit a GitHub PR review with approve or request-changes decision.
 - Add review findings to Trello when Trello workflow is used.
@@ -50,6 +51,7 @@ Before reviewing, the Code Reviewer Agent must read:
 - Use `--approve` only when Code Review status is PASS.
 - Use `--comment` only when environment or permission limits prevent a review decision.
 - Keep smoke checks targeted; they support technical review only.
+- Do not run local checkout or smoke checks in a shared project root; use an isolated review worktree.
 
 ---
 
@@ -73,6 +75,7 @@ Validate:
 - Task scope was respected.
 - PR does not contain unrelated changes.
 - Branch follows `feature/task-{number}-{kebab-case-name}` and PR title includes the Task ID when required.
+- Review worktree is used when local checkout or smoke checks are needed.
 - PR description includes validation evidence.
 - Generated artifacts are not included.
 - No unapproved runtime, framework, package manager, styling system, or persistence changes occurred.

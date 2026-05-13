@@ -13,7 +13,7 @@ Every implementation task must result in a focused GitHub pull request.
 
 ## Branch Naming
 
-Developer agents must create a feature branch before editing implementation files.
+Developer agents must create a task worktree and feature branch before editing implementation files.
 
 Use:
 
@@ -36,6 +36,39 @@ Rules:
 
 ---
 
+## Worktree Isolation
+
+Developer agents use one task worktree per implementation task by default.
+
+Worktrees are mandatory when more than one active task exists for the same repository.
+
+Task worktrees live under:
+
+```text
+/Users/matiasbinagora/Projects/.worktrees/<repo-name>/task-{number}-{kebab-case-name}
+```
+
+Review worktrees live under:
+
+```text
+/Users/matiasbinagora/Projects/.worktrees/<repo-name>/review-pr-{number}
+```
+
+Create task worktrees with:
+
+```bash
+/Users/matiasbinagora/Projects/_agentic-programming/scripts/create-task-worktree.sh <repo-path> <TASK-ID> <kebab-task-name> [base-branch]
+```
+
+Rules:
+
+- work only inside the task worktree after it is created
+- report worktree path and branch in implementation output
+- reviewers use review worktrees when local checkout or smoke checks are needed
+- keep branches by default when removing worktrees
+
+---
+
 ## Developer Branch Rules
 
 The Developer Agent must:
@@ -43,14 +76,15 @@ The Developer Agent must:
 1. Read the Trello task.
 2. Confirm the task is in Ready.
 3. Move the task Ready -> In Progress.
-4. Create a feature branch using `feature/task-{number}-{kebab-case-name}` before editing implementation files.
-5. Implement only the task scope.
-6. Run validation commands.
-7. Commit scoped changes.
-8. Push the branch.
-9. Create a GitHub PR.
-10. Add the PR URL to the Trello card.
-11. Move the Trello card In Progress -> Code Review.
+4. Create or reuse a task worktree.
+5. Create a feature branch using `feature/task-{number}-{kebab-case-name}` in the task worktree before editing implementation files.
+6. Implement only the task scope inside the task worktree.
+7. Run validation commands.
+8. Commit scoped changes.
+9. Push the branch.
+10. Create a GitHub PR.
+11. Add the PR URL and worktree path to the Trello card.
+12. Move the Trello card In Progress -> Code Review.
 
 The Developer Agent must NOT:
 
@@ -58,6 +92,7 @@ The Developer Agent must NOT:
 - mix multiple Trello tasks in one PR
 - push directly to main
 - create a PR without validation evidence
+- edit implementation files in the original project root once a task worktree exists
 - move a task to Functional Review or Done
 
 ---
@@ -164,6 +199,7 @@ A task cannot move to Functional Review until:
 - PR exists
 - PR references Trello Task ID
 - branch name follows `feature/task-{number}-{kebab-case-name}` unless an exception was approved
+- task worktree path is reported when local implementation used a worktree
 - validation evidence is present
 - Code Reviewer creates a GitHub PR review
 - Code Reviewer approves the PR or leaves only acceptable LOW findings

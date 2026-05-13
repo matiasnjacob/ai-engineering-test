@@ -72,10 +72,11 @@ The Code Reviewer Agent must:
 4. Confirm the PR title includes the Task ID.
 5. Confirm the branch name follows `feature/task-{number}-{kebab-case-name}` unless an exception was approved.
 6. Review only the PR diff.
-7. Run validation commands and targeted smoke checks when relevant and feasible.
-8. Submit a GitHub PR review with findings and a decision.
-9. Add review findings to Trello.
-10. Move the Trello card:
+7. Create a dedicated review worktree if local checkout, validation commands, or smoke checks are needed.
+8. Run validation commands and targeted smoke checks when relevant and feasible.
+9. Submit a GitHub PR review with findings and a decision.
+10. Add review findings to Trello.
+11. Move the Trello card:
    - Code Review -> Functional Review if PASS
    - Code Review -> Blocked if FAIL
 
@@ -88,6 +89,7 @@ The Code Reviewer Agent must validate:
 - task scope was respected
 - no unrelated files were changed
 - branch name follows `feature/task-{number}-{kebab-case-name}` unless an exception was approved
+- review worktree is used when local checkout or smoke checks are needed
 - PR title includes Task ID
 - PR description includes validation evidence
 - no generated artifacts are included
@@ -133,6 +135,12 @@ Rules:
 
 Smoke checks are allowed only to support the technical review decision.
 
+When smoke checks require local checkout, use a dedicated review worktree:
+
+```bash
+/Users/matiasbinagora/Projects/_agentic-programming/scripts/create-review-worktree.sh <repo-path> <pr-number> [base-branch]
+```
+
 Allowed examples:
 
 - run the API or relevant service locally when required dependencies are available
@@ -160,6 +168,7 @@ Return FAIL if:
 - technology baseline is changed without approval
 - code introduces risky complexity
 - required smoke checks fail when they are necessary for technical confidence
+- local checkout or smoke checks were run in a shared project root instead of an isolated review worktree
 
 Return PASS only if:
 

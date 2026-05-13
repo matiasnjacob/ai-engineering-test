@@ -18,7 +18,16 @@ The Developer Agent must:
 3. Confirm scope.
 4. Confirm architecture boundaries.
 5. Confirm current technology baseline.
-6. Ask questions if the task is ambiguous.
+6. Create or reuse the task worktree before editing implementation files.
+7. Ask questions if the task is ambiguous.
+
+Use:
+
+```bash
+/Users/matiasbinagora/Projects/_agentic-programming/scripts/create-task-worktree.sh <repo-path> <TASK-ID> <kebab-task-name> [base-branch]
+```
+
+Work only inside the returned worktree path.
 
 ---
 
@@ -42,14 +51,16 @@ When GitHub PR workflow is enabled, the Developer Agent must:
 
 1. Read the Trello task.
 2. Confirm it is in Ready.
-3. Create `feature/task-{number}-{kebab-case-name}` before editing implementation files.
-4. Implement only the task scope.
-5. Run validation commands.
-6. Commit scoped changes.
-7. Push the branch.
-8. Create a GitHub PR.
-9. Add the PR URL to the Trello card.
-10. Move the Trello card from In Progress to Code Review.
+3. Move the task Ready -> In Progress.
+4. Create or reuse a task worktree.
+5. Create `feature/task-{number}-{kebab-case-name}` in the task worktree before editing implementation files.
+6. Implement only the task scope inside the task worktree.
+7. Run validation commands inside the task worktree.
+8. Commit scoped changes.
+9. Push the branch.
+10. Create a GitHub PR.
+11. Add the PR URL and worktree path to the Trello card.
+12. Move the Trello card from In Progress to Code Review.
 
 The Developer Agent must NOT:
 
@@ -119,6 +130,11 @@ Use exactly this format:
 ## Implementation Summary
 
 ...
+
+## Worktree
+
+- Path:
+- Branch:
 
 ## Files Changed
 

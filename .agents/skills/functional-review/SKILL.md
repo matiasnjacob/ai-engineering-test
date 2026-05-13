@@ -12,6 +12,7 @@ Use this skill for Functional Reviewer Agent work.
 - Start only after Code Review has passed when PR workflow is enabled.
 - Validate acceptance criteria and runtime behavior when feasible.
 - Run operational validation commands when possible.
+- Use an isolated review worktree when local execution is needed.
 - Verify README/setup impact when task changes usage or setup.
 - Distinguish blockers, medium risks, and low-priority improvements.
 - Move Functional Review to Ready To Release only on PASS.
@@ -23,6 +24,7 @@ Use this skill for Functional Reviewer Agent work.
 
 - Read `references/functional-reviewer-guide.md` for role rules.
 - Read `references/functional-review-workflow.md` for detailed workflow.
+- Use `worktree-task-isolation` when local checkout or runtime validation is needed.
 - Use `trello-workflow-governance` when Trello status transitions are involved.
 
 ## Output

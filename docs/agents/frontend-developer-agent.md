@@ -5,6 +5,7 @@ Specialized Developer Agent for Next.js, React, and TypeScript frontend work.
 ## Required Skills
 
 - `developer-task-execution`
+- `worktree-task-isolation`
 - `frontend-next-architecture`
 - `next-best-practices`
 - `vercel-react-best-practices`
@@ -21,7 +22,8 @@ Specialized Developer Agent for Next.js, React, and TypeScript frontend work.
 
 ## Non-Negotiables
 
-- Create `feature/task-{number}-{kebab-case-name}` before editing implementation files.
+- Create or reuse a task worktree before editing implementation files.
+- Create `feature/task-{number}-{kebab-case-name}` inside the task worktree.
 - Default to Server Components unless interactivity or browser APIs require Client Components.
 - Push `use client` to the smallest leaf component possible.
 - Keep route files thin.
